@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
+import { session, authReadyPromise } from '@/lib/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,6 +20,18 @@ const router = createRouter({
       name: 'calendar',
       component: () => import('@/views/CalendarView.vue'),
       meta: { title: 'Calendar — Austin Rifle Club' },
+    },
+    {
+      path: '/admin/login',
+      name: 'admin-login',
+      component: () => import('@/views/AdminLoginView.vue'),
+      meta: { title: 'Admin Sign In — Austin Rifle Club' },
+    },
+    {
+      path: '/admin/calendar',
+      name: 'admin-calendar',
+      component: () => import('@/views/AdminCalendarView.vue'),
+      meta: { title: 'Manage Calendar Events — Austin Rifle Club', requiresAuth: true },
     },
     {
       path: '/membership',
@@ -57,6 +70,15 @@ const router = createRouter({
       meta: { title: 'Member Area — Austin Rifle Club' },
     },
   ],
+})
+
+router.beforeEach(async (to) => {
+  if (to.meta.requiresAuth) {
+    await authReadyPromise
+    if (!session.value) {
+      return { path: '/admin/login', query: { redirect: to.fullPath } }
+    }
+  }
 })
 
 router.afterEach((to) => {

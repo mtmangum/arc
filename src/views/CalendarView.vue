@@ -13,6 +13,14 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
+      <!-- Loading / error states -->
+      <p v-if="calendarEventsLoading && calendarEvents.length === 0" class="text-slate-400 text-sm mb-6">
+        Loading events…
+      </p>
+      <div v-if="calendarEventsError" class="rounded-lg bg-red-900/30 border border-red-800 px-4 py-3 text-red-300 text-sm mb-6">
+        Couldn't load events: {{ calendarEventsError }}
+      </div>
+
       <!-- Calendars and Legend -->
       <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 mb-10">
         <!-- Mini Calendars -->
@@ -191,90 +199,20 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import {
+  calendarEvents,
+  calendarEventsLoading,
+  calendarEventsError,
+  fetchCalendarEvents,
+  EVENT_TYPE_STYLES,
+  getEventTypeStyle,
+  type CalendarEvent,
+} from '@/data/calendarEvents'
 
-interface CalendarEvent {
-  date: string
-  month: string
-  day: string
-  title: string
-  venue: string
-  type: string
-  restricted?: boolean
-  url?: string
-}
-
-interface EventTypeStyle {
-  badge: string
-  dot: string
-  link: string[]
-  calendarDay: string
-  calendarBorder: string
-}
-
-const EVENT_TYPE_STYLES: Record<string, EventTypeStyle> = {
-  'Match': {
-    badge: 'bg-violet-900/40 text-violet-300 border border-violet-800',
-    dot: 'bg-violet-400',
-    link: ['text-violet-300', 'hover:bg-violet-900/30'],
-    calendarDay: 'text-white hover:bg-violet-600 cursor-pointer bg-violet-600/30 border-0',
-    calendarBorder: 'border-2 border-violet-600',
-  },
-  'Organized Practice': {
-    badge: 'bg-blue-900/40 text-blue-300 border border-blue-800',
-    dot: 'bg-blue-400',
-    link: ['text-blue-300', 'hover:bg-blue-900/30'],
-    calendarDay: 'text-white hover:bg-blue-600 cursor-pointer bg-blue-600/30 border-0',
-    calendarBorder: 'border-2 border-blue-600',
-  },
-  'ARC Event': {
-    badge: 'bg-amber-950/40 text-brand-300 border border-brand-800',
-    dot: 'bg-brand-400',
-    link: ['text-amber-300', 'hover:bg-amber-950/30'],
-    calendarDay: 'text-white hover:bg-amber-600 cursor-pointer bg-amber-600/30 border-0',
-    calendarBorder: 'border-2 border-amber-600',
-  },
-  'Work Day': {
-    badge: 'bg-amber-900/40 text-amber-300 border border-amber-800',
-    dot: 'bg-amber-400',
-    link: ['text-amber-300', 'hover:bg-amber-900/30'],
-    calendarDay: 'text-white hover:bg-amber-600 cursor-pointer bg-amber-600/30 border-0',
-    calendarBorder: 'border-2 border-amber-600',
-  },
-  'Class': {
-    badge: 'bg-cyan-900/40 text-cyan-300 border border-cyan-800',
-    dot: 'bg-cyan-400',
-    link: ['text-cyan-300', 'hover:bg-cyan-900/30'],
-    calendarDay: 'text-white hover:bg-cyan-600 cursor-pointer bg-cyan-600/30 border-0',
-    calendarBorder: 'border-2 border-cyan-600',
-  },
-  'ARC Meeting': {
-    badge: 'bg-slate-700/60 text-slate-300 border border-slate-600',
-    dot: 'bg-slate-400',
-    link: ['text-slate-300', 'hover:bg-slate-700/30'],
-    calendarDay: 'text-white hover:bg-slate-600 cursor-pointer bg-slate-600/30 border-0',
-    calendarBorder: 'border-2 border-slate-600',
-  },
-  'Youth Event': {
-    badge: 'bg-pink-900/40 text-pink-300 border border-pink-800',
-    dot: 'bg-pink-400',
-    link: ['text-pink-300', 'hover:bg-pink-900/30'],
-    calendarDay: 'text-white hover:bg-pink-600 cursor-pointer bg-pink-600/30 border-0',
-    calendarBorder: 'border-2 border-pink-600',
-  },
-}
-
-const DEFAULT_EVENT_TYPE_STYLE: EventTypeStyle = {
-  badge: 'bg-slate-700/40 text-slate-300 border border-slate-600',
-  dot: 'bg-slate-400',
-  link: ['text-slate-300', 'hover:bg-slate-700/30'],
-  calendarDay: 'text-white hover:bg-slate-600 cursor-pointer bg-slate-600/30 border-0',
-  calendarBorder: 'border-2 border-slate-600',
-}
-
-function getEventTypeStyle(type: string): EventTypeStyle {
-  return EVENT_TYPE_STYLES[type] ?? DEFAULT_EVENT_TYPE_STYLE
-}
+onMounted(() => {
+  fetchCalendarEvents()
+})
 
 const categories = Object.entries(EVENT_TYPE_STYLES).map(([label, style]) => ({
   label,
@@ -305,7 +243,7 @@ function isolateType(type: string): void {
     : new Set([type])
 }
 
-const filteredEvents = computed(() => events.filter(event => activeTypes.value.has(event.type)))
+const filteredEvents = computed(() => calendarEvents.filter(event => activeTypes.value.has(event.type)))
 
 const monthOffset = ref(0)
 
@@ -422,33 +360,4 @@ function getCalendarDayColors(day: number, month: number): string {
 
   return baseColor
 }
-
-const events: CalendarEvent[] = [
-  { date:'2026-06-28', month:'Jun', day:'28', title:'APSC Steel Challenge Pistol Match', venue:'Ranges H – L', type:'Match', url:'https://austinrifleclub.org/events/ranges-h-through-l-apsc-steel-challenge-pistol-match-780-470/' },
-  { date:'2026-06-28', month:'Jun', day:'28', title:'Benchrest Match', venue:'Range C', type:'Match', url:'https://austinrifleclub.org/events/range-c-benchrest-match/' },
-  { date:'2026-07-03', month:'Jul', day:'03', title:'ARC Advanced Tactical Shooting Practice', venue:'Ranges I & J', type:'Organized Practice', url:'https://austinrifleclub.org/events/ranges-i-and-j-arc-advanced-tactical-shooting-practice/' },
-  { date:'2026-07-04', month:'Jul', day:'04', title:'APSC Club USPSA Pistol Match', venue:'Ranges G – L', type:'Match', url:'https://austinrifleclub.org/events/ranges-h-through-l-apsc-club-uspsa-pistol-match/' },
-  { date:'2026-07-04', month:'Jul', day:'04', title:'High Power Rifle Match', venue:'Range C', type:'Match', url:'https://austinrifleclub.org/events/range-c-high-power-rifle-match/' },
-  { date:'2026-07-05', month:'Jul', day:'05', title:'Benchrest Match — Varmint (Mark S)', venue:'Range C', type:'Match', url:'https://austinrifleclub.org/events/range-c-benchrest-match-varmint-mark-s-500/' },
-  { date:'2026-07-05', month:'Jul', day:'05', title:'Junior Muzzle Loading Practice', venue:'Range A', type:'Youth Event', url:'https://austinrifleclub.org/events/range-a-junior-muzzle-loading-practice/' },
-  { date:'2026-07-09', month:'Jul', day:'09', title:'ARC Advanced Tactical Shooting Practice', venue:'Ranges I & J', type:'Organized Practice' },
-  { date:'2026-07-09', month:'Jul', day:'09', title:'LTC Qualification — Rick M', venue:'Range G', type:'Class' },
-  { date:'2026-07-11', month:'Jul', day:'11', title:'Range Work Day', venue:'All Ranges', type:'Work Day', url:'https://austinrifleclub.org/events/range-work-day-legacy-ranges/' },
-  { date:'2026-07-11', month:'Jul', day:'11', title:'ARC Members ONLY Swap Meet', venue:'Education Building', type:'ARC Event', restricted:true, url:'https://austinrifleclub.org/events/education-building-arc-members-only-swap-meet/' },
-  { date:'2026-07-12', month:'Jul', day:'12', title:'Hunter Pistol / Lever Action Rifle Silhouette Match', venue:'Ranges D & E', type:'Match' },
-  { date:'2026-07-12', month:'Jul', day:'12', title:'Monthly Board of Directors Meeting (Open to Members)', venue:'Education Building', type:'ARC Meeting', url:'https://austinrifleclub.org/events/arc-open-bod-meeting/' },
-  { date:'2026-07-12', month:'Jul', day:'12', title:'New Member Safety Evaluations (NMSE)', venue:'Ranges G & H', type:'ARC Event', restricted:true },
-  { date:'2026-07-12', month:'Jul', day:'12', title:'New Member Orientation (NMO) Class', venue:'Education Building', type:'Class', restricted:true },
-  { date:'2026-07-14', month:'Jul', day:'14', title:'LTC Qualification — Rick M', venue:'Range G', type:'Class' },
-  { date:'2026-07-16', month:'Jul', day:'16', title:'ARC Advanced Tactical Shooting Practice', venue:'Ranges I & J', type:'Organized Practice' },
-  { date:'2026-07-18', month:'Jul', day:'18', title:'APSC Club USPSA Pistol Match', venue:'Ranges G – L', type:'Match' },
-  { date:'2026-07-19', month:'Jul', day:'19', title:'2700 Conventional Pistol Match', venue:'Range A', type:'Match', url:'https://austinrifleclub.org/events/range-a-2700-conventional-pistol-match/' },
-  { date:'2026-07-19', month:'Jul', day:'19', title:'Smallbore Rifle Silhouette Match', venue:'Ranges D & E', type:'Match' },
-  { date:'2026-07-21', month:'Jul', day:'21', title:'Ben Hur Provost Guard Pistol Practice', venue:'Range A', type:'Organized Practice', url:'https://austinrifleclub.org/events/range-a-ben-hur-provost-guard-pistol-practice/' },
-  { date:'2026-07-23', month:'Jul', day:'23', title:'ARC Advanced Tactical Shooting Practice', venue:'Ranges I & J', type:'Organized Practice' },
-  { date:'2026-07-25', month:'Jul', day:'25', title:'LTC Class — John Davis', venue:'Range G', type:'Class', url:'https://austinrifleclub.org/events/ltc-class-john-davis-range-g-811-694-750-374-462/' },
-  { date:'2026-07-26', month:'Jul', day:'26', title:'APSC Steel Challenge Pistol Match', venue:'Ranges H – L', type:'Match' },
-  { date:'2026-07-26', month:'Jul', day:'26', title:'Benchrest Match', venue:'Range C', type:'Match' },
-  { date:'2026-07-30', month:'Jul', day:'30', title:'ARC Advanced Tactical Shooting Practice', venue:'Ranges I & J', type:'Organized Practice' },
-]
 </script>
