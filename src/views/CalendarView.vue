@@ -16,42 +16,82 @@
       <!-- Calendars and Legend -->
       <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 mb-10">
         <!-- Mini Calendars -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full lg:w-3/4">
-          <div v-for="month in [0, 1]" :key="month" class="card p-4 sm:p-6">
-            <h3 class="text-white font-semibold text-sm mb-4 text-center">
-              {{ new Date(2026, 5 + month, 1).toLocaleString('default', { month: 'long', year: 'numeric' }) }}
-            </h3>
-            <div class="grid grid-cols-7 gap-1 text-xs text-center">
-              <div v-for="day in ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']" :key="day" class="text-slate-500 font-semibold py-1">
-                {{ day }}
-              </div>
-              <button v-for="(date, idx) in getCalendarDays(5 + month)" :key="idx"
-                @click="date && hasEvents(date, 5 + month) ? scrollToDate(date, 5 + month) : null"
-                class="relative group h-8 sm:h-7 flex items-center justify-center rounded text-xs transition-colors font-semibold"
-                :class="date && hasEvents(date, 5 + month)
-                  ? getCalendarDayColors(date, 5 + month)
-                  : date
-                    ? 'text-slate-500 cursor-default bg-transparent border-0'
-                    : 'text-slate-600 cursor-default bg-transparent border-0'"
-              >
-                {{ date }}
+        <div class="w-full lg:w-3/4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div v-for="month in [0, 1]" :key="month" class="card p-4 sm:p-6" :class="month === mobileSlot ? '' : 'hidden sm:block'">
+              <div class="flex items-center justify-between mb-4">
+                <!-- Left slot: the first card always owns the prev arrow -->
+                <button v-if="month === 0" type="button" @click="monthOffset--" aria-label="Previous month"
+                  class="flex items-center justify-center w-8 h-8 rounded-lg border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 hover:border-amber-800/60 transition-colors">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <template v-else>
+                  <!-- If the second card is the one shown alone on mobile, it needs its own prev arrow too -->
+                  <button v-if="month === mobileSlot" type="button" @click="monthOffset--" aria-label="Previous month"
+                    class="sm:hidden flex items-center justify-center w-8 h-8 rounded-lg border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 hover:border-amber-800/60 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <span class="w-8 h-8" :class="month === mobileSlot ? 'hidden sm:block' : ''" />
+                </template>
 
-                <!-- Hover tooltip listing the day's events -->
-                <div v-if="date && hasEvents(date, 5 + month)"
-                  class="pointer-events-none absolute z-20 hidden group-hover:block top-full mt-2 w-56 sm:w-60 max-w-[85vw] rounded-lg border border-slate-700 bg-slate-900 p-3 text-left shadow-xl"
-                  :class="idx % 7 <= 1 ? 'left-0' : idx % 7 >= 5 ? 'right-0' : 'left-1/2 -translate-x-1/2'"
-                >
-                  <p class="text-white font-semibold text-xs mb-2">
-                    {{ new Date(2026, 5 + month, date).toLocaleDateString('default', { weekday: 'long', month: 'long', day: 'numeric' }) }}
-                  </p>
-                  <ul class="space-y-1.5">
-                    <li v-for="ev in getEventsForDay(date, 5 + month)" :key="ev.title" class="flex items-start gap-1.5">
-                      <span class="w-1.5 h-1.5 rounded-full mt-1 shrink-0" :class="getEventTypeStyle(ev.type).dot" />
-                      <span class="text-slate-300 text-xs leading-snug font-normal">{{ ev.title }}</span>
-                    </li>
-                  </ul>
+                <h3 class="text-white font-semibold text-sm text-center flex-1">
+                  {{ new Date(2026, monthIndex(month), 1).toLocaleString('default', { month: 'long', year: 'numeric' }) }}
+                </h3>
+
+                <!-- Right slot: the second card always owns the next arrow -->
+                <button v-if="month === 1" type="button" @click="monthOffset++" aria-label="Next month"
+                  class="flex items-center justify-center w-8 h-8 rounded-lg border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 hover:border-amber-800/60 transition-colors">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                <template v-else>
+                  <!-- If the first card is the one shown alone on mobile, it needs its own next arrow too -->
+                  <button v-if="month === mobileSlot" type="button" @click="monthOffset++" aria-label="Next month"
+                    class="sm:hidden flex items-center justify-center w-8 h-8 rounded-lg border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 hover:border-amber-800/60 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                  <span class="w-8 h-8" :class="month === mobileSlot ? 'hidden sm:block' : ''" />
+                </template>
+              </div>
+              <div class="grid grid-cols-7 gap-1 text-xs text-center">
+                <div v-for="day in ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']" :key="day" class="text-slate-500 font-semibold py-1">
+                  {{ day }}
                 </div>
-              </button>
+                <button v-for="(date, idx) in getCalendarDays(monthIndex(month))" :key="idx"
+                  @click="date && hasEvents(date, monthIndex(month)) ? scrollToDate(date, monthIndex(month)) : null"
+                  class="relative group h-8 sm:h-7 flex items-center justify-center rounded text-xs transition-colors font-semibold"
+                  :class="date && hasEvents(date, monthIndex(month))
+                    ? getCalendarDayColors(date, monthIndex(month))
+                    : date
+                      ? 'text-slate-500 cursor-default bg-transparent border-0'
+                      : 'text-slate-600 cursor-default bg-transparent border-0'"
+                >
+                  {{ date }}
+
+                  <!-- Hover tooltip listing the day's events -->
+                  <div v-if="date && hasEvents(date, monthIndex(month))"
+                    class="pointer-events-none absolute z-20 hidden group-hover:block top-full mt-2 w-56 sm:w-60 max-w-[85vw] rounded-lg border border-slate-700 bg-slate-900 p-3 text-left shadow-xl"
+                    :class="idx % 7 <= 1 ? 'left-0' : idx % 7 >= 5 ? 'right-0' : 'left-1/2 -translate-x-1/2'"
+                  >
+                    <p class="text-white font-semibold text-xs mb-2">
+                      {{ new Date(2026, monthIndex(month), date).toLocaleDateString('default', { weekday: 'long', month: 'long', day: 'numeric' }) }}
+                    </p>
+                    <ul class="space-y-1.5">
+                      <li v-for="ev in getEventsForDay(date, monthIndex(month))" :key="ev.title" class="flex items-start gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full mt-1 shrink-0" :class="getEventTypeStyle(ev.type).dot" />
+                        <span class="text-slate-300 text-xs leading-snug font-normal">{{ ev.title }}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -75,12 +115,18 @@
 
       <!-- Month heading -->
       <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
-        <h2 class="font-heading text-2xl font-bold text-white">July 2026</h2>
-        <span class="text-slate-400 text-sm">{{ filteredEvents.length }} events this month</span>
+        <div class="flex flex-wrap items-center gap-3">
+          <h2 class="font-heading text-2xl font-bold text-white">{{ monthRangeLabel }}</h2>
+          <button v-if="monthOffset !== 0" type="button" @click="monthOffset = 0"
+            class="text-xs font-semibold text-amber-600 hover:text-amber-400 uppercase tracking-wide transition-colors">
+            Back to Today
+          </button>
+        </div>
+        <span class="text-slate-400 text-sm">{{ visibleMonthEvents.length }} events shown</span>
       </div>
 
       <!-- Events grid -->
-      <p v-if="filteredEvents.length === 0" class="text-slate-400 text-sm">
+      <p v-if="visibleMonthEvents.length === 0" class="text-slate-400 text-sm">
         No events match the selected filters.
       </p>
       <div v-else class="space-y-3">
@@ -261,9 +307,48 @@ function isolateType(type: string): void {
 
 const filteredEvents = computed(() => events.filter(event => activeTypes.value.has(event.type)))
 
+const monthOffset = ref(0)
+
+function monthIndex(month: number): number {
+  return 5 + monthOffset.value + month
+}
+
+function monthKey(month: number): string {
+  const d = new Date(2026, monthIndex(month), 1)
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+}
+
+// On mobile only one of the two displayed months is shown at a time;
+// prefer whichever one is the real current month, defaulting to the first.
+const mobileSlot = computed(() => {
+  const today = new Date()
+  const isRealCurrentMonth = (month: number): boolean => {
+    const d = new Date(2026, monthIndex(month), 1)
+    return d.getFullYear() === today.getFullYear() && d.getMonth() === today.getMonth()
+  }
+  return isRealCurrentMonth(1) ? 1 : 0
+})
+
+const monthRangeLabel = computed(() => {
+  const start = new Date(2026, monthIndex(0), 1)
+  const end = new Date(2026, monthIndex(1), 1)
+  const startMonthName = start.toLocaleString('default', { month: 'long' })
+  const endLabel = end.toLocaleString('default', { month: 'long', year: 'numeric' })
+  if (start.getFullYear() === end.getFullYear()) {
+    return `${startMonthName} – ${endLabel}`
+  }
+  const startLabel = start.toLocaleString('default', { month: 'long', year: 'numeric' })
+  return `${startLabel} – ${endLabel}`
+})
+
+const visibleMonthEvents = computed(() => {
+  const visibleKeys = new Set([monthKey(0), monthKey(1)])
+  return filteredEvents.value.filter(event => visibleKeys.has(event.date.slice(0, 7)))
+})
+
 const groupedEvents = computed(() => {
   const grouped: Record<string, CalendarEvent[]> = {}
-  filteredEvents.value.forEach(event => {
+  visibleMonthEvents.value.forEach(event => {
     if (!grouped[event.date]) {
       grouped[event.date] = []
     }
@@ -308,7 +393,8 @@ function scrollToDate(day: number, month: number): void {
 }
 
 function getDateStr(day: number, month: number): string {
-  return `2026-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+  const d = new Date(2026, month, day)
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
 
 function getEventsForDay(day: number, month: number): CalendarEvent[] {
