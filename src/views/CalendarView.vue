@@ -13,15 +13,43 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-      <!-- Legend -->
-      <div class="flex flex-wrap gap-3 mb-10">
-        <span v-for="cat in categories" :key="cat.label"
-          class="badge gap-1.5 py-1 px-3"
-          :class="cat.classes"
-        >
-          <span class="w-1.5 h-1.5 rounded-full" :class="cat.dot" />
-          {{ cat.label }}
-        </span>
+      <!-- Calendars and Legend -->
+      <div class="flex gap-8 mb-10">
+        <!-- Mini Calendars -->
+        <div class="grid grid-cols-2 gap-6 w-3/4">
+          <div v-for="month in [0, 1]" :key="month" class="card">
+            <h3 class="text-white font-semibold text-sm mb-4 text-center">
+              {{ new Date(2026, 5 + month, 1).toLocaleString('default', { month: 'long', year: 'numeric' }) }}
+            </h3>
+            <div class="grid grid-cols-7 gap-1 text-xs text-center">
+              <div v-for="day in ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']" :key="day" class="text-slate-500 font-semibold py-1">
+                {{ day }}
+              </div>
+              <button v-for="(date, idx) in getCalendarDays(5 + month)" :key="idx"
+                @click="date && hasEvents(date, 5 + month) ? scrollToDate(date, 5 + month) : null"
+                class="h-7 flex items-center justify-center rounded text-xs transition-colors font-semibold"
+                :class="date && hasEvents(date, 5 + month) 
+                  ? getCalendarDayColors(date, 5 + month)
+                  : date 
+                    ? 'text-slate-500 cursor-default bg-transparent border-0' 
+                    : 'text-slate-600 cursor-default bg-transparent border-0'"
+              >
+                {{ date }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="flex flex-col gap-3 w-1/4">
+          <span v-for="cat in categories" :key="cat.label"
+            class="badge gap-1.5 py-1 px-3 w-fit"
+            :class="cat.classes"
+          >
+            <span class="w-1.5 h-1.5 rounded-full" :class="cat.dot" />
+            {{ cat.label }}
+          </span>
+        </div>
       </div>
 
       <!-- Month heading -->
@@ -35,7 +63,8 @@
         <div
           v-for="event in events"
           :key="event.title + event.date"
-          class="card-hover flex flex-col sm:flex-row sm:items-center gap-4"
+          :id="'event-' + event.date"
+          class="card-hover flex flex-col sm:flex-row sm:items-center gap-4 scroll-mt-40 transition-colors"
         >
           <!-- Date bubble -->
           <div class="shrink-0 w-16 h-16 rounded-xl flex flex-col items-center justify-center border border-slate-700 bg-slate-800">
@@ -59,7 +88,7 @@
 
           <!-- Arrow -->
           <a v-if="event.url" :href="event.url" target="_blank" rel="noopener"
-            class="shrink-0 p-2 rounded-lg text-slate-500 hover:text-amber-600 hover:bg-amber-950/30 transition-colors">
+            :class="['shrink-0 p-2 rounded-lg transition-colors', ...getLinkColorClasses(event.type)]">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
@@ -118,6 +147,91 @@ function getCategoryClasses(type: string): string {
     'Youth Event':         'bg-pink-900/40 text-pink-300 border border-pink-800',
   }
   return map[type] ?? 'bg-slate-700/40 text-slate-300 border border-slate-600'
+}
+
+function getLinkColorClasses(type: string): string[] {
+  const map: Record<string, string[]> = {
+    'Match':               ['text-violet-300', 'hover:bg-violet-900/30'],
+    'Organized Practice':  ['text-blue-300', 'hover:bg-blue-900/30'],
+    'ARC Event':           ['text-amber-300', 'hover:bg-amber-950/30'],
+    'Work Day':            ['text-amber-300', 'hover:bg-amber-900/30'],
+    'Class':               ['text-cyan-300', 'hover:bg-cyan-900/30'],
+    'ARC Meeting':         ['text-slate-300', 'hover:bg-slate-700/30'],
+    'Youth Event':         ['text-pink-300', 'hover:bg-pink-900/30'],
+  }
+  return map[type] ?? ['text-slate-300', 'hover:bg-slate-700/30']
+}
+
+function getCalendarDays(month: number): (number | null)[] {
+  const firstDay = new Date(2026, month, 1).getDay()
+  const daysInMonth = new Date(2026, month + 1, 0).getDate()
+  const days: (number | null)[] = []
+  
+  for (let i = 0; i < firstDay; i++) {
+    days.push(null)
+  }
+  for (let i = 1; i <= daysInMonth; i++) {
+    days.push(i)
+  }
+  return days
+}
+
+function scrollToDate(day: number, month: number): void {
+  const dateStr = `2026-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+  const element = document.getElementById(`event-${dateStr}`)
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    // Highlight briefly
+    element.classList.add('bg-amber-950/50')
+    setTimeout(() => {
+      element.classList.remove('bg-amber-950/50')
+    }, 2000)
+  }
+}
+
+function hasEvents(day: number, month: number): boolean {
+  const dateStr = `2026-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+  return events.some(event => event.date === dateStr)
+}
+
+function getCalendarDayColors(day: number, month: number): string {
+  const dateStr = `2026-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+  const dayEvents = events.filter(event => event.date === dateStr)
+  if (dayEvents.length === 0) return 'text-slate-500 cursor-default bg-transparent border-0'
+  
+  const uniqueTypes = [...new Set(dayEvents.map(e => e.type))]
+  const eventType = uniqueTypes[0]
+  
+  const colorMap: Record<string, string> = {
+    'Match':               'text-white hover:bg-violet-600 cursor-pointer bg-violet-600/30 border-0',
+    'Organized Practice':  'text-white hover:bg-blue-600 cursor-pointer bg-blue-600/30 border-0',
+    'ARC Event':           'text-white hover:bg-amber-600 cursor-pointer bg-amber-600/30 border-0',
+    'Work Day':            'text-white hover:bg-amber-600 cursor-pointer bg-amber-600/30 border-0',
+    'Class':               'text-white hover:bg-cyan-600 cursor-pointer bg-cyan-600/30 border-0',
+    'ARC Meeting':         'text-white hover:bg-slate-600 cursor-pointer bg-slate-600/30 border-0',
+    'Youth Event':         'text-white hover:bg-pink-600 cursor-pointer bg-pink-600/30 border-0',
+  }
+  
+  let baseColor = colorMap[eventType] ?? 'text-white hover:bg-slate-600 cursor-pointer bg-slate-600/30 border-0'
+  
+  // Add border for secondary event type if present
+  if (uniqueTypes.length > 1) {
+    const secondaryType = uniqueTypes[1]
+    const borderColorMap: Record<string, string> = {
+      'Match':               'border-2 border-violet-600',
+      'Organized Practice':  'border-2 border-blue-600',
+      'ARC Event':           'border-2 border-amber-600',
+      'Work Day':            'border-2 border-amber-600',
+      'Class':               'border-2 border-cyan-600',
+      'ARC Meeting':         'border-2 border-slate-600',
+      'Youth Event':         'border-2 border-pink-600',
+    }
+    const borderColor = borderColorMap[secondaryType] ?? 'border-2 border-slate-600'
+    // Replace border-0 with the secondary border color
+    baseColor = baseColor.replace('border-0', borderColor)
+  }
+  
+  return baseColor
 }
 
 const events: CalendarEvent[] = [

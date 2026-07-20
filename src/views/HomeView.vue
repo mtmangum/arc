@@ -121,12 +121,9 @@
           </p>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          <div v-for="d in disciplines" :key="d.name" class="card-hover flex items-start gap-4">
-            <span class="text-2xl mt-0.5">{{ d.emoji }}</span>
-            <div>
-              <h3 class="text-white font-semibold mb-1">{{ d.name }}</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">{{ d.desc }}</p>
-            </div>
+          <div v-for="d in disciplines" :key="d.name" class="card-hover">
+            <h3 class="text-white font-semibold mb-2">{{ d.name }}</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">{{ d.desc }}</p>
           </div>
         </div>
         <div class="text-center mt-10">
