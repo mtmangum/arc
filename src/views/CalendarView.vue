@@ -14,10 +14,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
       <!-- Calendars and Legend -->
-      <div class="flex gap-8 mb-10">
+      <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 mb-10">
         <!-- Mini Calendars -->
-        <div class="grid grid-cols-2 gap-6 w-3/4">
-          <div v-for="month in [0, 1]" :key="month" class="card">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full lg:w-3/4">
+          <div v-for="month in [0, 1]" :key="month" class="card p-4 sm:p-6">
             <h3 class="text-white font-semibold text-sm mb-4 text-center">
               {{ new Date(2026, 5 + month, 1).toLocaleString('default', { month: 'long', year: 'numeric' }) }}
             </h3>
@@ -27,7 +27,7 @@
               </div>
               <button v-for="(date, idx) in getCalendarDays(5 + month)" :key="idx"
                 @click="date && hasEvents(date, 5 + month) ? scrollToDate(date, 5 + month) : null"
-                class="relative group h-7 flex items-center justify-center rounded text-xs transition-colors font-semibold"
+                class="relative group h-8 sm:h-7 flex items-center justify-center rounded text-xs transition-colors font-semibold"
                 :class="date && hasEvents(date, 5 + month)
                   ? getCalendarDayColors(date, 5 + month)
                   : date
@@ -38,7 +38,8 @@
 
                 <!-- Hover tooltip listing the day's events -->
                 <div v-if="date && hasEvents(date, 5 + month)"
-                  class="pointer-events-none absolute z-20 hidden group-hover:block top-full mt-2 left-1/2 -translate-x-1/2 w-60 rounded-lg border border-slate-700 bg-slate-900 p-3 text-left shadow-xl"
+                  class="pointer-events-none absolute z-20 hidden group-hover:block top-full mt-2 w-56 sm:w-60 max-w-[85vw] rounded-lg border border-slate-700 bg-slate-900 p-3 text-left shadow-xl"
+                  :class="idx % 7 <= 1 ? 'left-0' : idx % 7 >= 5 ? 'right-0' : 'left-1/2 -translate-x-1/2'"
                 >
                   <p class="text-white font-semibold text-xs mb-2">
                     {{ new Date(2026, 5 + month, date).toLocaleDateString('default', { weekday: 'long', month: 'long', day: 'numeric' }) }}
@@ -56,25 +57,31 @@
         </div>
 
         <!-- Legend -->
-        <div class="flex flex-col gap-3 w-1/4">
-          <span v-for="cat in categories" :key="cat.label"
-            class="badge gap-1.5 py-1 px-3 w-fit"
-            :class="cat.classes"
+        <div class="flex flex-row flex-wrap lg:flex-col gap-2 lg:gap-3 w-full lg:w-1/4">
+          <button v-for="cat in categories" :key="cat.label"
+            type="button"
+            @click="toggleType(cat.label)"
+            :aria-pressed="isTypeActive(cat.label)"
+            class="badge gap-1.5 py-1 px-3 w-fit transition-opacity cursor-pointer"
+            :class="[cat.classes, isTypeActive(cat.label) ? '' : 'opacity-40 grayscale']"
           >
             <span class="w-1.5 h-1.5 rounded-full" :class="cat.dot" />
             {{ cat.label }}
-          </span>
+          </button>
         </div>
       </div>
 
       <!-- Month heading -->
-      <div class="flex items-center justify-between mb-6">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
         <h2 class="font-heading text-2xl font-bold text-white">July 2026</h2>
-        <span class="text-slate-400 text-sm">{{ events.length }} events this month</span>
+        <span class="text-slate-400 text-sm">{{ filteredEvents.length }} events this month</span>
       </div>
 
       <!-- Events grid -->
-      <div class="space-y-3">
+      <p v-if="filteredEvents.length === 0" class="text-slate-400 text-sm">
+        No events match the selected filters.
+      </p>
+      <div v-else class="space-y-3">
         <div
           v-for="(dayEvents, date) in groupedEvents"
           :key="date"
@@ -90,7 +97,7 @@
 
             <!-- Events for this day -->
             <div class="flex-1 min-w-0">
-              <div v-for="(event, idx) in dayEvents" :key="event.title" class="flex flex-col sm:flex-row sm:items-center gap-3 mb-3 pb-3" :class="idx < dayEvents.length - 1 ? 'border-b border-slate-700' : ''">
+              <div v-for="(event, idx) in dayEvents" :key="event.title" class="flex flex-col items-start sm:flex-row sm:items-center gap-3 mb-3 pb-3" :class="idx < dayEvents.length - 1 ? 'border-b border-slate-700' : ''">
                 <div class="flex-1 min-w-0">
                   <div class="flex flex-wrap items-center gap-2 mb-1">
                     <span class="badge py-0.5 px-2 text-xs" :class="getCategoryClasses(event.type)">
@@ -136,7 +143,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 interface CalendarEvent {
   date: string
@@ -227,9 +234,27 @@ const categories = Object.entries(EVENT_TYPE_STYLES).map(([label, style]) => ({
   dot: style.dot,
 }))
 
+const activeTypes = ref<Set<string>>(new Set(categories.map(cat => cat.label)))
+
+function isTypeActive(type: string): boolean {
+  return activeTypes.value.has(type)
+}
+
+function toggleType(type: string): void {
+  const next = new Set(activeTypes.value)
+  if (next.has(type)) {
+    next.delete(type)
+  } else {
+    next.add(type)
+  }
+  activeTypes.value = next
+}
+
+const filteredEvents = computed(() => events.filter(event => activeTypes.value.has(event.type)))
+
 const groupedEvents = computed(() => {
   const grouped: Record<string, CalendarEvent[]> = {}
-  events.forEach(event => {
+  filteredEvents.value.forEach(event => {
     if (!grouped[event.date]) {
       grouped[event.date] = []
     }
@@ -279,7 +304,7 @@ function getDateStr(day: number, month: number): string {
 
 function getEventsForDay(day: number, month: number): CalendarEvent[] {
   const dateStr = getDateStr(day, month)
-  return events.filter(event => event.date === dateStr)
+  return filteredEvents.value.filter(event => event.date === dateStr)
 }
 
 function hasEvents(day: number, month: number): boolean {
