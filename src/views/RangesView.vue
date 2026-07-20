@@ -1,0 +1,190 @@
+<template>
+  <div>
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="page-header-inner">
+        <span class="text-brand-400 text-sm font-semibold uppercase tracking-widest">Facilities</span>
+        <h1 class="section-heading mt-2 mb-3">Our Ranges</h1>
+        <p class="section-sub max-w-xl">
+          Multiple bays serving a wide variety of shooting disciplines — from 10m air pistol to 200yd centerfire rifle.
+        </p>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+      <!-- Building map -->
+      <div class="card mb-14 overflow-hidden p-0">
+        <div class="bg-slate-800/50 px-6 py-4 border-b border-slate-700 flex items-center justify-between">
+          <h2 class="font-heading text-lg font-semibold text-white">Range Complex Map</h2>
+          <span class="text-slate-400 text-xs">16312 Littig Rd, Manor, TX 78653</span>
+        </div>
+        <div class="p-4 md:p-8 flex justify-center bg-slate-900">
+          <img
+            src="https://austinrifleclub.org/wp-content/uploads/2016/09/RangePic-1.png"
+            alt="Austin Rifle Club building and range map"
+            class="max-w-full rounded-lg border border-slate-700"
+          />
+        </div>
+      </div>
+
+      <!-- Ranges at a glance -->
+      <h2 class="font-heading text-2xl font-bold text-white mb-6">Ranges at a Glance</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
+        <div v-for="range in ranges" :key="range.id" class="card-hover">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="w-9 h-9 rounded-lg bg-brand-900/50 border border-brand-800/50 flex items-center justify-center font-heading font-bold text-brand-300 text-sm">
+              {{ range.id }}
+            </span>
+            <h3 class="text-white font-semibold text-sm">{{ range.name }}</h3>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed mb-3">{{ range.desc }}</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span v-for="tag in range.tags" :key="tag"
+              class="text-xs px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400">
+              {{ tag }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-14">
+        <div v-for="s in quickStats" :key="s.label" class="card text-center">
+          <p class="text-2xl font-heading font-bold text-brand-400 mb-1">{{ s.value }}</p>
+          <p class="text-slate-400 text-xs">{{ s.label }}</p>
+        </div>
+      </div>
+
+      <!-- Parking info -->
+      <div class="grid md:grid-cols-2 gap-6 mb-14">
+        <div class="card">
+          <h3 class="font-heading text-base font-bold text-white mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 13l4 4L19 7"/>
+            </svg>
+            North Side Parking (Ranges A–E)
+          </h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Park directly in front of shooting positions at each range. Parking on the grass
+            across the road is also acceptable — stay on the road until you reach your parking spot.
+            Do not drive on the grass.
+          </p>
+        </div>
+        <div class="card">
+          <h3 class="font-heading text-base font-bold text-white mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 13l4 4L19 7"/>
+            </svg>
+            South Side Parking (Ranges G–L)
+          </h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Use the designated parking area or park off the service road — keep the road clear.
+            If parking is full during a match, use the grassy area on the north side of the creek.
+            If you're the only one on a bay, parking beside or behind the covered firing line is fine.
+          </p>
+        </div>
+      </div>
+
+      <!-- Gate access -->
+      <div class="card bg-brand-900/20 border-brand-800/50">
+        <h3 class="font-heading text-base font-bold text-white mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+          </svg>
+          Badge Gate Access
+        </h3>
+        <ul class="space-y-2 text-sm text-slate-300">
+          <li class="flex items-start gap-2">
+            <span class="text-brand-400 font-bold mt-0.5">→</span>
+            Place your ARC badge on the black keypad (accessible through the driver's side window).
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-brand-400 font-bold mt-0.5">→</span>
+            <strong class="text-white">Triple beep</strong> = access granted. <strong class="text-white">Long solid beep</strong> = lapsed or suspended membership.
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-brand-400 font-bold mt-0.5">→</span>
+            Always scan your badge <strong class="text-white">when entering AND exiting</strong>. Never tailgate or allow another vehicle to follow you through.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Range hours -->
+      <div class="mt-6 card">
+        <h3 class="font-heading text-base font-bold text-white mb-2">Range Hours</h3>
+        <p class="text-slate-300 text-sm">
+          7 days a week, <strong class="text-white">30 minutes before sunrise</strong> to <strong class="text-white">30 minutes after sunset</strong>,
+          including holidays. Please be considerate of neighbors.
+          After hours, members may be on the property but shooting is not permitted.
+        </p>
+        <p class="text-slate-400 text-xs mt-2">
+          Partial and full closures (Work Days, matches, events) are shown on the <RouterLink to="/calendar" class="text-brand-400 hover:underline">calendar</RouterLink>.
+        </p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+const ranges = [
+  {
+    id: 'A',
+    name: 'Range A',
+    desc: 'Multi-use range for conventional pistol, muzzle loading, and organized practices. Home to the 2700 Conventional Pistol Match and Junior Muzzle Loading Practice.',
+    tags: ['Pistol', 'Muzzle Loading', 'Rimfire'],
+  },
+  {
+    id: 'B',
+    name: 'Range B',
+    desc: 'General use range with fixed target frames and target stick support. Target sticks required (5 ft recommended).',
+    tags: ['General Use', 'Target Sticks Required'],
+  },
+  {
+    id: 'C',
+    name: 'Range C',
+    desc: 'The club\'s primary long-range rifle bay. Home to High Power Rifle and Benchrest matches at distances up to 200 yards.',
+    tags: ['Centerfire Rifle', 'Benchrest', '200 yd', 'High Power'],
+  },
+  {
+    id: 'D & E',
+    name: 'Ranges D & E',
+    desc: 'Silhouette ranges for hunter pistol, lever-action rifle, and smallbore rifle silhouette matches.',
+    tags: ['Silhouette', 'Pistol', 'Smallbore Rifle', 'Lever Action'],
+  },
+  {
+    id: 'G',
+    name: 'Range G',
+    desc: 'Six-bay covered action shooting range. Hosts LTC qualification courses, USPSA matches, and new member safety evaluations. Classroom also available for ARC-approved instruction.',
+    tags: ['Pistol', 'LTC', 'USPSA', 'Covered'],
+  },
+  {
+    id: 'H–L',
+    name: 'Ranges H – L',
+    desc: 'Five bays dedicated to action shooting disciplines including USPSA and Steel Challenge. Target sticks required on select bays.',
+    tags: ['USPSA', 'Steel Challenge', 'Action Shooting', 'Target Sticks'],
+  },
+  {
+    id: 'I & J',
+    name: 'Ranges I & J',
+    desc: 'Used for ARC Advanced Tactical Shooting Practice (weekly on Wednesdays) and USPSA club matches.',
+    tags: ['Tactical', 'USPSA', 'Weekly Practice'],
+  },
+  {
+    id: 'Indoor',
+    name: 'Indoor Air Range',
+    desc: '10-meter air rifle and air pistol. Limited access — contact the club for availability.',
+    tags: ['Air Rifle', 'Air Pistol', '10m', 'Indoor', 'Limited Access'],
+  },
+]
+
+const quickStats = [
+  { value: '200 yd', label: 'Max centerfire rifle distance' },
+  { value: '10m',    label: 'Indoor air gun range' },
+  { value: '12+',    label: 'Total shooting bays' },
+  { value: '7 days', label: 'Weekly access' },
+]
+</script>

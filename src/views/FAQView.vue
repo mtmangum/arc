@@ -1,0 +1,283 @@
+<template>
+  <div>
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="page-header-inner">
+        <span class="text-brand-400 text-sm font-semibold uppercase tracking-widest">Help</span>
+        <h1 class="section-heading mt-2 mb-3">Frequently Asked Questions</h1>
+        <p class="section-sub max-w-xl">
+          Common questions from prospective and current members. Still have questions? Email the membership team.
+        </p>
+      </div>
+    </div>
+
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+      <!-- Search / filter -->
+      <div class="relative mb-8">
+        <input
+          v-model="search"
+          type="text"
+          placeholder="Search questions…"
+          class="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 pl-11 pr-4 text-slate-200 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-colors"
+        />
+        <svg class="w-5 h-5 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <button v-if="search" @click="search = ''" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Category pills -->
+      <div class="flex flex-wrap gap-2 mb-8">
+        <button
+          v-for="cat in categories"
+          :key="cat"
+          @click="activeCategory = activeCategory === cat ? null : cat"
+          class="text-xs px-3 py-1.5 rounded-full border transition-all duration-150 font-medium"
+          :class="activeCategory === cat
+            ? 'bg-brand-600 border-brand-500 text-white'
+            : 'bg-slate-900 border-slate-700 text-slate-400 hover:border-brand-600 hover:text-slate-200'"
+        >
+          {{ cat }}
+        </button>
+      </div>
+
+      <!-- Results count -->
+      <p v-if="search || activeCategory" class="text-slate-500 text-xs mb-4">
+        Showing {{ filteredFaqs.length }} of {{ faqs.length }} questions
+      </p>
+
+      <!-- FAQ accordion -->
+      <div class="space-y-2">
+        <div
+          v-for="(faq, i) in filteredFaqs"
+          :key="faq.q"
+          class="border border-slate-800 rounded-xl overflow-hidden transition-all duration-200"
+          :class="openIndex === i ? 'border-brand-800/60 bg-slate-900/80' : 'bg-slate-900/40 hover:border-slate-700'"
+        >
+          <button
+            class="w-full flex items-start justify-between gap-4 px-5 py-4 text-left"
+            @click="openIndex = openIndex === i ? null : i"
+            :aria-expanded="openIndex === i"
+          >
+            <span class="text-sm font-semibold text-white leading-snug">{{ faq.q }}</span>
+            <svg
+              class="w-5 h-5 shrink-0 text-slate-400 transition-transform duration-200 mt-0.5"
+              :class="openIndex === i ? 'rotate-180 text-brand-400' : ''"
+              fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          <Transition name="faq-body">
+            <div v-if="openIndex === i" class="px-5 pb-5">
+              <div class="h-px bg-slate-800 mb-4" />
+              <div class="text-slate-300 text-sm leading-relaxed prose-a prose-links" v-html="faq.a" />
+              <span v-if="faq.category" class="inline-block mt-3 text-xs px-2 py-0.5 rounded-full bg-brand-900/40 text-brand-400 border border-brand-800">
+                {{ faq.category }}
+              </span>
+            </div>
+          </Transition>
+        </div>
+
+        <!-- Empty state -->
+        <div v-if="filteredFaqs.length === 0" class="text-center py-16">
+          <svg class="w-12 h-12 text-slate-700 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p class="text-slate-500 text-sm">No questions match your search.</p>
+          <button @click="search = ''; activeCategory = null" class="text-brand-400 text-sm mt-2 hover:underline">Clear filters</button>
+        </div>
+      </div>
+
+      <!-- Contact CTA -->
+      <div class="mt-12 card bg-brand-900/20 border-brand-800/50 text-center">
+        <p class="text-slate-200 font-semibold mb-2">Still have questions?</p>
+        <p class="text-slate-400 text-sm mb-5">Read through the range rules or email the membership team directly.</p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="mailto:membership@austinrifleclub.org" class="btn-primary">
+            Email Membership Team
+          </a>
+          <RouterLink to="/range-rules" class="btn-secondary">View Range Rules</RouterLink>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+
+const search = ref('')
+const openIndex = ref<number | null>(null)
+const activeCategory = ref<string | null>(null)
+
+const categories = ['Membership', 'Range Use', 'Rules & Safety', 'Fees', 'Events']
+
+interface FAQ {
+  q: string
+  a: string
+  category: string
+}
+
+const faqs: FAQ[] = [
+  {
+    q: 'What is Austin Rifle Club?',
+    category: 'Membership',
+    a: 'Austin Rifle Club, Inc. is a non-profit, all-volunteer organization dedicated to the shooting sports and the education of America\'s youth in the areas of shooting and safe gun handling. Established in 1894 and incorporated in 1928, ARC\'s range is located right outside of Manor, TX on Littig Road. <strong class="text-white">We are a club!</strong> Members have unlimited access to the range during range hours, and it is also our membership who maintains the range.',
+  },
+  {
+    q: 'Is the public allowed to shoot on the range?',
+    category: 'Membership',
+    a: 'No. Austin Rifle Club is a private club. Only members and their guests are allowed to use the range. Memberships are annual — we do not offer hourly, daily, weekly, or monthly options. Guests must be directly supervised by a full member and signed in (limit: twice per year; new members may not bring guests). Family membership options are available. To host a commercial class or event, contact <a href="mailto:business@austinrifleclub.org" class="text-brand-400 hover:underline">business@austinrifleclub.org</a>.',
+  },
+  {
+    q: 'I just got my first gun — is ARC membership right for me?',
+    category: 'Membership',
+    a: 'Probably not right now. We require members to use firearms safely without assistance. This is verified in the Prospect Safety Evaluation. There are NRA Basics instructors who teach at ARC and other ranges in the area who can help you get started. Once you can safely and independently handle and shoot a firearm, you are welcome to join.',
+  },
+  {
+    q: 'Can I get a range tour before joining?',
+    category: 'Membership',
+    a: 'We are run completely by volunteers with no paid staff, so we cannot offer range tours. You can review the <a href="/ranges" class="text-brand-400 hover:underline">range overviews</a> and <a href="/range-rules" class="text-brand-400 hover:underline">range rules</a> online. As an alternative, attend a match — all matches are open to non-members. Contact the match director via the calendar entry. Remember: even as an observer, you must remain on the specific range(s) assigned to the match.',
+  },
+  {
+    q: 'What is a Prospect Safety Evaluation?',
+    category: 'Membership',
+    a: 'All membership applicants must be evaluated by an ARC Range Safety Officer to ensure they can handle firearms and use the range safely on their own and in the presence of others. This is a one-on-one evaluation held immediately prior to the Range Orientation Class for convenience. See <a href="/membership/join" class="text-brand-400 hover:underline">How to Join</a> for more details.',
+  },
+  {
+    q: 'Is Range Orientation Class ever canceled?',
+    category: 'Membership',
+    a: 'If a class is canceled, all registered students will be notified by email.',
+  },
+  {
+    q: 'Can I include parents, siblings, or extended family in a Family Membership?',
+    category: 'Membership',
+    a: '<strong class="text-white">No.</strong> The Family membership is for a married couple to join as full members at a reduced rate, with all of their children included at the family rate of $200/year. Extended family such as parents, siblings, etc. are not eligible.',
+  },
+  {
+    q: 'What does it cost to join the club?',
+    category: 'Fees',
+    a: 'See the <a href="/membership" class="text-brand-400 hover:underline">Membership page</a> for all options. Dues are prorated for the first year depending on the month you join — do not bring exact payment to orientation unless you know your prorated amount. Add a $200 initiation fee and, if applicable, a $15 background check fee. Range use is free for dues-paid members; matches, classes, and special events may have their own fees.',
+  },
+  {
+    q: 'Do I have to renew my membership every year?',
+    category: 'Membership',
+    a: '<strong class="text-white">Yes!</strong> All members must renew annually, including Life Members. Renewal ensures your safety rule knowledge stays current and your contact information is up to date.',
+  },
+  {
+    q: 'What ranges and events take up which ranges, and when?',
+    category: 'Events',
+    a: 'Always check the <a href="/calendar" class="text-brand-400 hover:underline">calendar</a> before visiting. Click any individual event to see which Range Venue is reserved. It\'s no fun to arrive only to find the range you wanted is occupied by a match.',
+  },
+  {
+    q: 'Where can I park at the range?',
+    category: 'Range Use',
+    a: '<strong class="text-white">North side (Ranges A–E):</strong> Park directly in front of the shooting positions at each range, or in the grass across the road (drive on the road, not the grass). <strong class="text-white">South side (Ranges G–L):</strong> Use the designated parking area or park off the service road — keep the road clear. If you\'re the only member on a bay, parking beside or behind the firing line is fine.',
+  },
+  {
+    q: 'What target sticks do I need for Ranges B, H, I, J, K, and L?',
+    category: 'Range Use',
+    a: 'The cheapest rounded-corner sticks from Lowe\'s or Home Depot work best — usually under $1.50 each (2024 pricing). Cut them to 5 feet long; shorter limits target placement options. For small vehicles, two-part bolted sticks are an option (contact the safety director for details). Used cardboard backers are nearly always available in the used-target cages on Ranges H–L.',
+  },
+  {
+    q: 'How do I use my ARC badge to access the range?',
+    category: 'Range Use',
+    a: 'Place your badge on the black keypad, accessible through the driver\'s side window. <strong class="text-white">Triple beep</strong> = access granted. <strong class="text-white">Long solid beep</strong> = lapsed or suspended membership. Always scan your badge when entering <em>and</em> exiting. Never tailgate through the gate or allow another car to follow you through.',
+  },
+  {
+    q: 'What are the range hours?',
+    category: 'Range Use',
+    a: 'Shooting is permitted 7 days a week, 30 minutes before sunrise to 30 minutes after sunset, including holidays. Please be considerate of neighbors. After hours, members may be on the property but shooting is not permitted. Partial and full closures are shown on the calendar.',
+  },
+  {
+    q: 'What ranges and distances do you have?',
+    category: 'Range Use',
+    a: `<ul class="space-y-1 list-none">
+      <li>Centerfire rifle: up to <strong class="text-white">200 yards</strong></li>
+      <li>Shorter rifle ranges: 100 yd, 50 yd, 25 yd, 100/75/50/40m</li>
+      <li>Pistols, PCCs, black powder, shotgun, rimfire: 1–100m (varies by range)</li>
+      <li>Indoor 10m air rifle and air pistol (limited access)</li>
+    </ul>`,
+  },
+  {
+    q: 'Can I draw from a holster and shoot? How fast can I shoot?',
+    category: 'Rules & Safety',
+    a: 'Drawing from a belt holster is allowed on some ranges, but all shooting must be done with a sight picture acquired. Rapid fire is limited to the rate at which you can acquire a proper sight picture between shots.',
+  },
+  {
+    q: 'Can I shoot multiple targets or steel targets?',
+    category: 'Rules & Safety',
+    a: 'Yes on some ranges, no on others. The rules for multiple targets and steel are covered in New Member Orientation. Refer also to the <a href="https://austinrifleclub.org/files/SteelQuickRef.pdf" target="_blank" rel="noopener" class="text-brand-400 hover:underline">Steel Target Quick Reference</a> and the <a href="/range-rules" class="text-brand-400 hover:underline">Firearm Use by Range</a> document.',
+  },
+  {
+    q: 'Can I move around and shoot?',
+    category: 'Rules & Safety',
+    a: '<strong class="text-white">No.</strong> Movement while shooting is not permitted except when participating in a match or an ARC-authorized match practice. Full members with Range Safety Officer credentials may apply to hold authorized practices.',
+  },
+  {
+    q: 'Are NFA firearms allowed?',
+    category: 'Rules & Safety',
+    a: 'Legal suppressors, SBRs (short-barreled rifles), and SBSs (short-barreled shotguns) are welcome. Machine guns and simulated automatic fire — including bump stocks, forced-reset triggers (FRTs), Switches (SS), and similar devices — are <strong class="text-white">not allowed</strong>.',
+  },
+  {
+    q: 'Can I buy targets, ammo, or supplies at the range?',
+    category: 'Range Use',
+    a: 'No. There are no retail sales at the range. Bring everything you need.',
+  },
+  {
+    q: 'How busy does it get? Can I reserve a range?',
+    category: 'Range Use',
+    a: 'Outside of scheduled matches, classes, and events on the calendar, the ranges are almost never completely full. Range reservations are not available for general use — only for calendar-listed events.',
+  },
+  {
+    q: 'How long does it take to join?',
+    category: 'Membership',
+    a: 'You typically receive your range access badge after completing the monthly new member orientation, paying your fees, and passing the safety evaluation. New member dues are prorated for the first year.',
+  },
+  {
+    q: 'How do I renew my membership?',
+    category: 'Membership',
+    a: 'Renewal notices are sent in early October. Log in to the <a href="/member-area" class="text-brand-400 hover:underline">Member Area</a> and click the Renewal icon. Members who renew before January 1 will have no interruption of access. Lapsed access takes one full business day to reinstate after payment. If lapsed 2+ years, you must <a href="/membership/join" class="text-brand-400 hover:underline">rejoin as a new member</a>. For issues, email <a href="mailto:membership@austinrifleclub.org" class="text-brand-400 hover:underline">membership@austinrifleclub.org</a>.',
+  },
+  {
+    q: 'What if I have other questions?',
+    category: 'Membership',
+    a: 'Read through the range rules and/or the quick reference cards. If your question remains, contact the Membership team using the email address in the joining instructions.',
+  },
+]
+
+const filteredFaqs = computed(() => {
+  let list = faqs
+  if (activeCategory.value) {
+    list = list.filter(f => f.category === activeCategory.value)
+  }
+  if (search.value.trim()) {
+    const q = search.value.toLowerCase()
+    list = list.filter(f =>
+      f.q.toLowerCase().includes(q) || f.a.toLowerCase().includes(q)
+    )
+  }
+  return list
+})
+</script>
+
+<style scoped>
+.faq-body-enter-active,
+.faq-body-leave-active {
+  transition: opacity 0.15s ease, max-height 0.2s ease;
+  max-height: 600px;
+  overflow: hidden;
+}
+.faq-body-enter-from,
+.faq-body-leave-to {
+  opacity: 0;
+  max-height: 0;
+}
+</style>
