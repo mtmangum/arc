@@ -61,7 +61,9 @@
           <button v-for="cat in categories" :key="cat.label"
             type="button"
             @click="toggleType(cat.label)"
+            @dblclick="isolateType(cat.label)"
             :aria-pressed="isTypeActive(cat.label)"
+            title="Click to show/hide. Double-click to isolate."
             class="badge gap-1.5 py-1 px-3 w-fit transition-opacity cursor-pointer"
             :class="[cat.classes, isTypeActive(cat.label) ? '' : 'opacity-40 grayscale']"
           >
@@ -248,6 +250,13 @@ function toggleType(type: string): void {
     next.add(type)
   }
   activeTypes.value = next
+}
+
+function isolateType(type: string): void {
+  const isAlreadyIsolated = activeTypes.value.size === 1 && activeTypes.value.has(type)
+  activeTypes.value = isAlreadyIsolated
+    ? new Set(categories.map(cat => cat.label))
+    : new Set([type])
 }
 
 const filteredEvents = computed(() => events.filter(event => activeTypes.value.has(event.type)))
