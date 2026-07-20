@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-slate-900 border-t border-slate-800">
+  <footer class="bg-slate-900 border-t-2 border-amber-900/40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
 
@@ -7,12 +7,12 @@
         <div class="flex flex-col gap-4">
           <RouterLink to="/" class="flex items-center gap-3">
             <img
-              src="https://austinrifleclub.org/wp-content/uploads/2024/05/Transparent.png"
+              src="@/assets/logo.png"
               alt="Austin Rifle Club"
-              class="h-10 w-auto brightness-0 invert"
+              class="h-10 w-auto"
             />
-            <span class="font-heading font-bold text-white text-base leading-tight">
-              Austin<br /><span class="text-brand-400">Rifle Club</span>
+            <span class="font-heading font-bold text-white text-base">
+              Austin<br /><span class="text-amber-600">Rifle Club</span>
             </span>
           </RouterLink>
           <p class="text-slate-400 text-sm leading-relaxed max-w-xs">
@@ -36,7 +36,7 @@
             <li v-for="link in navLinks" :key="link.to">
               <RouterLink
                 :to="link.to"
-                class="text-slate-400 hover:text-brand-400 text-sm transition-colors"
+                class="text-slate-400 hover:text-amber-600 text-sm transition-colors"
               >
                 {{ link.label }}
               </RouterLink>
@@ -53,7 +53,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              <a href="mailto:membership@austinrifleclub.org" class="hover:text-brand-400 transition-colors break-all">
+              <a href="mailto:membership@austinrifleclub.org" class="hover:text-amber-600 transition-colors break-all">
                 membership@austinrifleclub.org
               </a>
             </li>
@@ -62,7 +62,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              <a href="mailto:business@austinrifleclub.org" class="hover:text-brand-400 transition-colors break-all">
+              <a href="mailto:business@austinrifleclub.org" class="hover:text-amber-600 transition-colors break-all">
                 business@austinrifleclub.org
               </a>
             </li>
@@ -75,7 +75,7 @@
         </div>
       </div>
 
-      <div class="mt-10 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="mt-10 pt-6 border-t border-amber-900/40 flex flex-col sm:flex-row items-center justify-between gap-3">
         <p class="text-slate-500 text-xs">
           &copy; {{ currentYear }} Austin Rifle Club, Inc. All rights reserved.
         </p>

@@ -3,7 +3,7 @@
     <!-- Page Header -->
     <div class="page-header">
       <div class="page-header-inner">
-        <span class="text-brand-400 text-sm font-semibold uppercase tracking-widest">Help</span>
+        <span class="text-amber-600 text-sm font-semibold uppercase tracking-widest">Help</span>
         <h1 class="section-heading mt-2 mb-3">Frequently Asked Questions</h1>
         <p class="section-sub max-w-xl">
           Common questions from prospective and current members. Still have questions? Email the membership team.
@@ -40,7 +40,7 @@
           class="text-xs px-3 py-1.5 rounded-full border transition-all duration-150 font-medium"
           :class="activeCategory === cat
             ? 'bg-brand-600 border-brand-500 text-white'
-            : 'bg-slate-900 border-slate-700 text-slate-400 hover:border-brand-600 hover:text-slate-200'"
+            : 'bg-slate-900 border-slate-700 text-slate-400 hover:border-amber-700 hover:text-slate-200'"
         >
           {{ cat }}
         </button>
@@ -67,7 +67,7 @@
             <span class="text-sm font-semibold text-white leading-snug">{{ faq.q }}</span>
             <svg
               class="w-5 h-5 shrink-0 text-slate-400 transition-transform duration-200 mt-0.5"
-              :class="openIndex === i ? 'rotate-180 text-brand-400' : ''"
+              :class="openIndex === i ? 'rotate-180 text-amber-600' : ''"
               fill="none" stroke="currentColor" viewBox="0 0 24 24"
             >
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -78,7 +78,7 @@
             <div v-if="openIndex === i" class="px-5 pb-5">
               <div class="h-px bg-slate-800 mb-4" />
               <div class="text-slate-300 text-sm leading-relaxed prose-a prose-links" v-html="faq.a" />
-              <span v-if="faq.category" class="inline-block mt-3 text-xs px-2 py-0.5 rounded-full bg-brand-900/40 text-brand-400 border border-brand-800">
+              <span v-if="faq.category" class="inline-block mt-3 text-xs px-2 py-0.5 rounded-full bg-amber-950/40 text-amber-600 border border-brand-800">
                 {{ faq.category }}
               </span>
             </div>
@@ -91,12 +91,12 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <p class="text-slate-500 text-sm">No questions match your search.</p>
-          <button @click="search = ''; activeCategory = null" class="text-brand-400 text-sm mt-2 hover:underline">Clear filters</button>
+          <button @click="search = ''; activeCategory = null" class="text-amber-600 text-sm mt-2 hover:underline">Clear filters</button>
         </div>
       </div>
 
       <!-- Contact CTA -->
-      <div class="mt-12 card bg-brand-900/20 border-brand-800/50 text-center">
+      <div class="mt-12 card bg-amber-950/20 border-brand-800/50 text-center">
         <p class="text-slate-200 font-semibold mb-2">Still have questions?</p>
         <p class="text-slate-400 text-sm mb-5">Read through the range rules or email the membership team directly.</p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
@@ -134,7 +134,7 @@ const faqs: FAQ[] = [
   {
     q: 'Is the public allowed to shoot on the range?',
     category: 'Membership',
-    a: 'No. Austin Rifle Club is a private club. Only members and their guests are allowed to use the range. Memberships are annual — we do not offer hourly, daily, weekly, or monthly options. Guests must be directly supervised by a full member and signed in (limit: twice per year; new members may not bring guests). Family membership options are available. To host a commercial class or event, contact <a href="mailto:business@austinrifleclub.org" class="text-brand-400 hover:underline">business@austinrifleclub.org</a>.',
+    a: 'No. Austin Rifle Club is a private club. Only members and their guests are allowed to use the range. Memberships are annual — we do not offer hourly, daily, weekly, or monthly options. Guests must be directly supervised by a full member and signed in (limit: twice per year; new members may not bring guests). Family membership options are available. To host a commercial class or event, contact <a href="mailto:business@austinrifleclub.org" class="text-amber-600 hover:underline">business@austinrifleclub.org</a>.',
   },
   {
     q: 'I just got my first gun — is ARC membership right for me?',
@@ -144,12 +144,12 @@ const faqs: FAQ[] = [
   {
     q: 'Can I get a range tour before joining?',
     category: 'Membership',
-    a: 'We are run completely by volunteers with no paid staff, so we cannot offer range tours. You can review the <a href="/ranges" class="text-brand-400 hover:underline">range overviews</a> and <a href="/range-rules" class="text-brand-400 hover:underline">range rules</a> online. As an alternative, attend a match — all matches are open to non-members. Contact the match director via the calendar entry. Remember: even as an observer, you must remain on the specific range(s) assigned to the match.',
+    a: 'We are run completely by volunteers with no paid staff, so we cannot offer range tours. You can review the <a href="/ranges" class="text-amber-600 hover:underline">range overviews</a> and <a href="/range-rules" class="text-amber-600 hover:underline">range rules</a> online. As an alternative, attend a match — all matches are open to non-members. Contact the match director via the calendar entry. Remember: even as an observer, you must remain on the specific range(s) assigned to the match.',
   },
   {
     q: 'What is a Prospect Safety Evaluation?',
     category: 'Membership',
-    a: 'All membership applicants must be evaluated by an ARC Range Safety Officer to ensure they can handle firearms and use the range safely on their own and in the presence of others. This is a one-on-one evaluation held immediately prior to the Range Orientation Class for convenience. See <a href="/membership/join" class="text-brand-400 hover:underline">How to Join</a> for more details.',
+    a: 'All membership applicants must be evaluated by an ARC Range Safety Officer to ensure they can handle firearms and use the range safely on their own and in the presence of others. This is a one-on-one evaluation held immediately prior to the Range Orientation Class for convenience. See <a href="/membership/join" class="text-amber-600 hover:underline">How to Join</a> for more details.',
   },
   {
     q: 'Is Range Orientation Class ever canceled?',
@@ -164,7 +164,7 @@ const faqs: FAQ[] = [
   {
     q: 'What does it cost to join the club?',
     category: 'Fees',
-    a: 'See the <a href="/membership" class="text-brand-400 hover:underline">Membership page</a> for all options. Dues are prorated for the first year depending on the month you join — do not bring exact payment to orientation unless you know your prorated amount. Add a $200 initiation fee and, if applicable, a $15 background check fee. Range use is free for dues-paid members; matches, classes, and special events may have their own fees.',
+    a: 'See the <a href="/membership" class="text-amber-600 hover:underline">Membership page</a> for all options. Dues are prorated for the first year depending on the month you join — do not bring exact payment to orientation unless you know your prorated amount. Add a $200 initiation fee and, if applicable, a $15 background check fee. Range use is free for dues-paid members; matches, classes, and special events may have their own fees.',
   },
   {
     q: 'Do I have to renew my membership every year?',
@@ -174,7 +174,7 @@ const faqs: FAQ[] = [
   {
     q: 'What ranges and events take up which ranges, and when?',
     category: 'Events',
-    a: 'Always check the <a href="/calendar" class="text-brand-400 hover:underline">calendar</a> before visiting. Click any individual event to see which Range Venue is reserved. It\'s no fun to arrive only to find the range you wanted is occupied by a match.',
+    a: 'Always check the <a href="/calendar" class="text-amber-600 hover:underline">calendar</a> before visiting. Click any individual event to see which Range Venue is reserved. It\'s no fun to arrive only to find the range you wanted is occupied by a match.',
   },
   {
     q: 'Where can I park at the range?',
@@ -214,7 +214,7 @@ const faqs: FAQ[] = [
   {
     q: 'Can I shoot multiple targets or steel targets?',
     category: 'Rules & Safety',
-    a: 'Yes on some ranges, no on others. The rules for multiple targets and steel are covered in New Member Orientation. Refer also to the <a href="https://austinrifleclub.org/files/SteelQuickRef.pdf" target="_blank" rel="noopener" class="text-brand-400 hover:underline">Steel Target Quick Reference</a> and the <a href="/range-rules" class="text-brand-400 hover:underline">Firearm Use by Range</a> document.',
+    a: 'Yes on some ranges, no on others. The rules for multiple targets and steel are covered in New Member Orientation. Refer also to the <a href="https://austinrifleclub.org/files/SteelQuickRef.pdf" target="_blank" rel="noopener" class="text-amber-600 hover:underline">Steel Target Quick Reference</a> and the <a href="/range-rules" class="text-amber-600 hover:underline">Firearm Use by Range</a> document.',
   },
   {
     q: 'Can I move around and shoot?',
@@ -244,7 +244,7 @@ const faqs: FAQ[] = [
   {
     q: 'How do I renew my membership?',
     category: 'Membership',
-    a: 'Renewal notices are sent in early October. Log in to the <a href="/member-area" class="text-brand-400 hover:underline">Member Area</a> and click the Renewal icon. Members who renew before January 1 will have no interruption of access. Lapsed access takes one full business day to reinstate after payment. If lapsed 2+ years, you must <a href="/membership/join" class="text-brand-400 hover:underline">rejoin as a new member</a>. For issues, email <a href="mailto:membership@austinrifleclub.org" class="text-brand-400 hover:underline">membership@austinrifleclub.org</a>.',
+    a: 'Renewal notices are sent in early October. Log in to the <a href="/member-area" class="text-amber-600 hover:underline">Member Area</a> and click the Renewal icon. Members who renew before January 1 will have no interruption of access. Lapsed access takes one full business day to reinstate after payment. If lapsed 2+ years, you must <a href="/membership/join" class="text-amber-600 hover:underline">rejoin as a new member</a>. For issues, email <a href="mailto:membership@austinrifleclub.org" class="text-amber-600 hover:underline">membership@austinrifleclub.org</a>.',
   },
   {
     q: 'What if I have other questions?',

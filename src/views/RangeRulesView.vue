@@ -3,7 +3,7 @@
     <!-- Page Header -->
     <div class="page-header">
       <div class="page-header-inner">
-        <span class="text-brand-400 text-sm font-semibold uppercase tracking-widest">Safety</span>
+        <span class="text-amber-600 text-sm font-semibold uppercase tracking-widest">Safety</span>
         <h1 class="section-heading mt-2 mb-3">Range Rules</h1>
         <p class="section-sub max-w-xl">
           All members must read and follow the range rules. These documents are updated periodically — always refer to the latest version.
@@ -24,7 +24,7 @@
           class="group card-hover flex items-center gap-5 no-underline"
         >
           <!-- Icon -->
-          <div class="shrink-0 w-14 h-14 rounded-xl flex items-center justify-center border border-slate-700 bg-slate-800 group-hover:border-brand-700 group-hover:bg-brand-900/30 transition-all duration-200">
+          <div class="shrink-0 w-14 h-14 rounded-xl flex items-center justify-center border border-slate-700 bg-slate-800 group-hover:border-amber-800 group-hover:bg-amber-950/30 transition-all duration-200">
             <svg class="w-7 h-7 text-red-400 group-hover:text-red-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -46,7 +46,7 @@
           </div>
 
           <!-- Download arrow -->
-          <div class="shrink-0 flex items-center gap-2 text-slate-500 group-hover:text-brand-400 transition-colors">
+          <div class="shrink-0 flex items-center gap-2 text-slate-500 group-hover:text-amber-600 transition-colors">
             <span class="text-xs font-medium hidden sm:block">PDF</span>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -61,8 +61,8 @@
       <div class="grid sm:grid-cols-2 gap-4 mb-14">
         <div v-for="rule in keyRules" :key="rule.label" class="card flex items-start gap-3">
           <div class="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center mt-0.5"
-            :class="rule.allowed ? 'bg-brand-900/40' : 'bg-red-900/30'">
-            <svg class="w-4 h-4" :class="rule.allowed ? 'text-brand-400' : 'text-red-400'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            :class="rule.allowed ? 'bg-amber-950/40' : 'bg-red-900/30'">
+            <svg class="w-4 h-4" :class="rule.allowed ? 'text-amber-600' : 'text-red-400'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path v-if="rule.allowed" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -75,9 +75,9 @@
       </div>
 
       <!-- Annual renewal reminder -->
-      <div class="card bg-brand-900/20 border-brand-800/50">
+      <div class="card bg-amber-950/20 border-brand-800/50">
         <div class="flex gap-3">
-          <svg class="w-5 h-5 text-brand-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>

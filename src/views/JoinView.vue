@@ -3,7 +3,7 @@
     <!-- Page Header -->
     <div class="page-header">
       <div class="page-header-inner">
-        <RouterLink to="/membership" class="inline-flex items-center gap-1 text-brand-400 text-sm hover:text-brand-300 mb-4 transition-colors">
+        <RouterLink to="/membership" class="inline-flex items-center gap-1 text-amber-600 text-sm hover:text-brand-300 mb-4 transition-colors">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
           </svg>
@@ -45,7 +45,7 @@
             <!-- Step number -->
             <div class="relative z-10 shrink-0">
               <div class="w-16 h-16 rounded-2xl flex items-center justify-center font-heading font-bold text-xl border-2 transition-colors"
-                :class="step.complete ? 'bg-brand-700 border-brand-600 text-white' : 'bg-slate-900 border-slate-700 text-slate-300'">
+                :class="step.complete ? 'bg-brand-700 border-amber-700 text-white' : 'bg-slate-900 border-slate-700 text-slate-300'">
                 {{ i + 1 }}
               </div>
             </div>

@@ -3,7 +3,7 @@
     <!-- Page Header -->
     <div class="page-header">
       <div class="page-header-inner">
-        <span class="text-brand-400 text-sm font-semibold uppercase tracking-widest">Facilities</span>
+        <span class="text-amber-600 text-sm font-semibold uppercase tracking-widest">Facilities</span>
         <h1 class="section-heading mt-2 mb-3">Our Ranges</h1>
         <p class="section-sub max-w-xl">
           Multiple bays serving a wide variety of shooting disciplines — from 10m air pistol to 200yd centerfire rifle.
@@ -33,7 +33,7 @@
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
         <div v-for="range in ranges" :key="range.id" class="card-hover">
           <div class="flex items-center gap-3 mb-3">
-            <span class="w-9 h-9 rounded-lg bg-brand-900/50 border border-brand-800/50 flex items-center justify-center font-heading font-bold text-brand-300 text-sm">
+            <span class="w-9 h-9 rounded-lg bg-amber-950/50 border border-brand-800/50 flex items-center justify-center font-heading font-bold text-brand-300 text-sm">
               {{ range.id }}
             </span>
             <h3 class="text-white font-semibold text-sm">{{ range.name }}</h3>
@@ -51,7 +51,7 @@
       <!-- Quick stats -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-14">
         <div v-for="s in quickStats" :key="s.label" class="card text-center">
-          <p class="text-2xl font-heading font-bold text-brand-400 mb-1">{{ s.value }}</p>
+          <p class="text-2xl font-heading font-bold text-amber-600 mb-1">{{ s.value }}</p>
           <p class="text-slate-400 text-xs">{{ s.label }}</p>
         </div>
       </div>
@@ -60,7 +60,7 @@
       <div class="grid md:grid-cols-2 gap-6 mb-14">
         <div class="card">
           <h3 class="font-heading text-base font-bold text-white mb-3 flex items-center gap-2">
-            <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M5 13l4 4L19 7"/>
             </svg>
@@ -74,7 +74,7 @@
         </div>
         <div class="card">
           <h3 class="font-heading text-base font-bold text-white mb-3 flex items-center gap-2">
-            <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M5 13l4 4L19 7"/>
             </svg>
@@ -89,9 +89,9 @@
       </div>
 
       <!-- Gate access -->
-      <div class="card bg-brand-900/20 border-brand-800/50">
+      <div class="card bg-amber-950/20 border-brand-800/50">
         <h3 class="font-heading text-base font-bold text-white mb-3 flex items-center gap-2">
-          <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
           </svg>
@@ -99,15 +99,15 @@
         </h3>
         <ul class="space-y-2 text-sm text-slate-300">
           <li class="flex items-start gap-2">
-            <span class="text-brand-400 font-bold mt-0.5">→</span>
+            <span class="text-amber-600 font-bold mt-0.5">→</span>
             Place your ARC badge on the black keypad (accessible through the driver's side window).
           </li>
           <li class="flex items-start gap-2">
-            <span class="text-brand-400 font-bold mt-0.5">→</span>
+            <span class="text-amber-600 font-bold mt-0.5">→</span>
             <strong class="text-white">Triple beep</strong> = access granted. <strong class="text-white">Long solid beep</strong> = lapsed or suspended membership.
           </li>
           <li class="flex items-start gap-2">
-            <span class="text-brand-400 font-bold mt-0.5">→</span>
+            <span class="text-amber-600 font-bold mt-0.5">→</span>
             Always scan your badge <strong class="text-white">when entering AND exiting</strong>. Never tailgate or allow another vehicle to follow you through.
           </li>
         </ul>
@@ -122,7 +122,7 @@
           After hours, members may be on the property but shooting is not permitted.
         </p>
         <p class="text-slate-400 text-xs mt-2">
-          Partial and full closures (Work Days, matches, events) are shown on the <RouterLink to="/calendar" class="text-brand-400 hover:underline">calendar</RouterLink>.
+          Partial and full closures (Work Days, matches, events) are shown on the <RouterLink to="/calendar" class="text-amber-600 hover:underline">calendar</RouterLink>.
         </p>
       </div>
     </div>

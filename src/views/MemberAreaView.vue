@@ -53,7 +53,7 @@
                 href="https://austinrifleclub.org/wp-login.php?action=lostpassword"
                 target="_blank"
                 rel="noopener"
-                class="text-brand-400 text-xs hover:text-brand-300 transition-colors"
+                class="text-amber-600 text-xs hover:text-brand-300 transition-colors"
               >
                 Forgot password?
               </a>
@@ -115,7 +115,7 @@
 
           <p class="text-center text-slate-500 text-xs">
             Member login is managed through the ARC WordPress portal.<br />
-            <a href="https://austinrifleclub.org/wp-login.php" target="_blank" rel="noopener" class="text-brand-400 hover:underline">
+            <a href="https://austinrifleclub.org/wp-login.php" target="_blank" rel="noopener" class="text-amber-600 hover:underline">
               Open the legacy login page →
             </a>
           </p>
@@ -132,7 +132,7 @@
 
           <ul class="space-y-3">
             <li v-for="step in renewalSteps" :key="step" class="flex items-start gap-3 text-sm text-slate-300">
-              <svg class="w-5 h-5 text-brand-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>
               {{ step }}
@@ -149,7 +149,7 @@
           </button>
           <p class="text-center text-xs text-slate-500">
             Renewal issues? Email
-            <a href="mailto:membership@austinrifleclub.org" class="text-brand-400 hover:underline">
+            <a href="mailto:membership@austinrifleclub.org" class="text-amber-600 hover:underline">
               membership@austinrifleclub.org
             </a>
           </p>
@@ -159,7 +159,7 @@
       <!-- Not a member yet -->
       <p class="text-center text-slate-500 text-sm mt-6">
         Not a member yet?
-        <RouterLink to="/membership/join" class="text-brand-400 hover:text-brand-300 transition-colors">
+        <RouterLink to="/membership/join" class="text-amber-600 hover:text-brand-300 transition-colors">
           Learn how to join →
         </RouterLink>
       </p>

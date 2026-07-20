@@ -3,7 +3,7 @@
     <!-- Page Header -->
     <div class="page-header">
       <div class="page-header-inner">
-        <span class="text-brand-400 text-sm font-semibold uppercase tracking-widest">Schedule</span>
+        <span class="text-amber-600 text-sm font-semibold uppercase tracking-widest">Schedule</span>
         <h1 class="section-heading mt-2 mb-3">Event Calendar</h1>
         <p class="section-sub max-w-xl">
           Check before you come — matches and events reserve specific ranges. Click any event for details.
@@ -59,7 +59,7 @@
 
           <!-- Arrow -->
           <a v-if="event.url" :href="event.url" target="_blank" rel="noopener"
-            class="shrink-0 p-2 rounded-lg text-slate-500 hover:text-brand-400 hover:bg-brand-900/30 transition-colors">
+            class="shrink-0 p-2 rounded-lg text-slate-500 hover:text-amber-600 hover:bg-amber-950/30 transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
@@ -68,9 +68,9 @@
       </div>
 
       <!-- Info note -->
-      <div class="mt-10 card bg-brand-900/20 border-brand-800/50">
+      <div class="mt-10 card bg-amber-950/20 border-brand-800/50">
         <div class="flex gap-3">
-          <svg class="w-5 h-5 text-brand-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -100,7 +100,7 @@ interface CalendarEvent {
 const categories = [
   { label: 'Match',              classes: 'bg-violet-900/40 text-violet-300 border border-violet-800', dot: 'bg-violet-400' },
   { label: 'Organized Practice', classes: 'bg-blue-900/40 text-blue-300 border border-blue-800',     dot: 'bg-blue-400' },
-  { label: 'ARC Event',          classes: 'bg-brand-900/40 text-brand-300 border border-brand-800',  dot: 'bg-brand-400' },
+  { label: 'ARC Event',          classes: 'bg-amber-950/40 text-brand-300 border border-brand-800',  dot: 'bg-brand-400' },
   { label: 'Work Day',           classes: 'bg-amber-900/40 text-amber-300 border border-amber-800',  dot: 'bg-amber-400' },
   { label: 'Class',              classes: 'bg-cyan-900/40 text-cyan-300 border border-cyan-800',     dot: 'bg-cyan-400' },
   { label: 'ARC Meeting',        classes: 'bg-slate-700/60 text-slate-300 border border-slate-600',  dot: 'bg-slate-400' },
@@ -111,7 +111,7 @@ function getCategoryClasses(type: string): string {
   const map: Record<string, string> = {
     'Match':               'bg-violet-900/40 text-violet-300 border border-violet-800',
     'Organized Practice':  'bg-blue-900/40 text-blue-300 border border-blue-800',
-    'ARC Event':           'bg-brand-900/40 text-brand-300 border border-brand-800',
+    'ARC Event':           'bg-amber-950/40 text-brand-300 border border-brand-800',
     'Work Day':            'bg-amber-900/40 text-amber-300 border border-amber-800',
     'Class':               'bg-cyan-900/40 text-cyan-300 border border-cyan-800',
     'ARC Meeting':         'bg-slate-700/60 text-slate-300 border border-slate-600',

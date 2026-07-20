@@ -1,6 +1,6 @@
 <template>
   <header
-    class="sticky top-0 z-50 w-full border-b border-slate-800 bg-slate-950/90 backdrop-blur-md"
+    class="sticky top-0 z-50 w-full border-b-2 border-amber-900/40 bg-slate-950/95 backdrop-blur-md"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
@@ -13,7 +13,7 @@
             class="h-14 w-auto object-contain"
           />
           <span class="hidden sm:block font-heading font-bold text-white text-lg">
-            Austin <span class="text-brand-400">Rifle Club</span>
+            Austin <span class="text-amber-600">Rifle Club</span>
           </span>
         </RouterLink>
 
@@ -106,18 +106,18 @@ function isActive(path: string) {
 
 <style scoped>
 .nav-link {
-  @apply px-3 py-2 rounded-lg text-sm font-medium text-slate-300
-         hover:text-white hover:bg-slate-800/60 transition-all duration-150;
+  @apply px-3 py-2 rounded text-sm font-medium text-slate-400
+         hover:text-amber-200 hover:bg-slate-800/40 transition-all duration-150;
 }
 .nav-link-active {
-  @apply text-brand-400 bg-brand-900/30;
+  @apply text-amber-500 bg-amber-900/20;
 }
 .mobile-nav-link {
-  @apply px-4 py-2.5 rounded-lg text-sm font-medium text-slate-300
-         hover:text-white hover:bg-slate-800 transition-all duration-150;
+  @apply px-4 py-2.5 rounded text-sm font-medium text-slate-400
+         hover:text-amber-200 hover:bg-slate-800 transition-all duration-150;
 }
 .mobile-nav-link-active {
-  @apply text-brand-400 bg-brand-900/30;
+  @apply text-amber-500 bg-amber-900/30;
 }
 .mobile-menu-enter-active,
 .mobile-menu-leave-active {
