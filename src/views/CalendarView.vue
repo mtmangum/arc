@@ -27,14 +27,29 @@
               </div>
               <button v-for="(date, idx) in getCalendarDays(5 + month)" :key="idx"
                 @click="date && hasEvents(date, 5 + month) ? scrollToDate(date, 5 + month) : null"
-                class="h-7 flex items-center justify-center rounded text-xs transition-colors font-semibold"
-                :class="date && hasEvents(date, 5 + month) 
+                class="relative group h-7 flex items-center justify-center rounded text-xs transition-colors font-semibold"
+                :class="date && hasEvents(date, 5 + month)
                   ? getCalendarDayColors(date, 5 + month)
-                  : date 
-                    ? 'text-slate-500 cursor-default bg-transparent border-0' 
+                  : date
+                    ? 'text-slate-500 cursor-default bg-transparent border-0'
                     : 'text-slate-600 cursor-default bg-transparent border-0'"
               >
                 {{ date }}
+
+                <!-- Hover tooltip listing the day's events -->
+                <div v-if="date && hasEvents(date, 5 + month)"
+                  class="pointer-events-none absolute z-20 hidden group-hover:block top-full mt-2 left-1/2 -translate-x-1/2 w-60 rounded-lg border border-slate-700 bg-slate-900 p-3 text-left shadow-xl"
+                >
+                  <p class="text-white font-semibold text-xs mb-2">
+                    {{ new Date(2026, 5 + month, date).toLocaleDateString('default', { weekday: 'long', month: 'long', day: 'numeric' }) }}
+                  </p>
+                  <ul class="space-y-1.5">
+                    <li v-for="ev in getEventsForDay(date, 5 + month)" :key="ev.title" class="flex items-start gap-1.5">
+                      <span class="w-1.5 h-1.5 rounded-full mt-1 shrink-0" :class="getEventTypeStyle(ev.type).dot" />
+                      <span class="text-slate-300 text-xs leading-snug font-normal">{{ ev.title }}</span>
+                    </li>
+                  </ul>
+                </div>
               </button>
             </div>
           </div>
@@ -246,7 +261,7 @@ function getCalendarDays(month: number): (number | null)[] {
 }
 
 function scrollToDate(day: number, month: number): void {
-  const dateStr = `2026-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+  const dateStr = getDateStr(day, month)
   const element = document.getElementById(`event-${dateStr}`)
   if (element) {
     element.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -258,16 +273,23 @@ function scrollToDate(day: number, month: number): void {
   }
 }
 
+function getDateStr(day: number, month: number): string {
+  return `2026-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+}
+
+function getEventsForDay(day: number, month: number): CalendarEvent[] {
+  const dateStr = getDateStr(day, month)
+  return events.filter(event => event.date === dateStr)
+}
+
 function hasEvents(day: number, month: number): boolean {
-  const dateStr = `2026-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-  return events.some(event => event.date === dateStr)
+  return getEventsForDay(day, month).length > 0
 }
 
 function getCalendarDayColors(day: number, month: number): string {
-  const dateStr = `2026-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-  const dayEvents = events.filter(event => event.date === dateStr)
+  const dayEvents = getEventsForDay(day, month)
   if (dayEvents.length === 0) return 'text-slate-500 cursor-default bg-transparent border-0'
-  
+
   const uniqueTypes = [...new Set(dayEvents.map(e => e.type))]
   let baseColor = getEventTypeStyle(uniqueTypes[0]).calendarDay
 
