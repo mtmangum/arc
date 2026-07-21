@@ -52,16 +52,18 @@ const buildingHotspots: Hotspot[] = [
   { rangeId: 'A', label: 'A', x: 388, y: 293, w: 138, h: 100 },
   { rangeId: 'B', label: 'B', x: 538, y: 348, w: 65, h: 78 },
   { rangeId: 'C', label: 'C', x: 636, y: 468, w: 160, h: 55 },
-  { rangeId: 'D & E', label: 'D · E', x: 782, y: 458, w: 260, h: 65 },
+  { rangeId: 'D', label: 'D', x: 782, y: 458, w: 128, h: 65 },
+  { rangeId: 'E', label: 'E', x: 914, y: 458, w: 128, h: 65 },
+  { rangeId: 'F', label: 'F', x: 278, y: 790, w: 82, h: 75 },
 ]
 
 const bayOrder = ['L', 'K', 'J', 'I', 'H', 'G']
 const bayRangeId: Record<string, string> = {
-  L: 'H–L',
-  K: 'H–L',
-  J: 'I & J',
-  I: 'I & J',
-  H: 'H–L',
+  L: 'L',
+  K: 'H-K',
+  J: 'H-K',
+  I: 'H-K',
+  H: 'H-K',
   G: 'G',
 }
 const bayHotspots: Hotspot[] = bayOrder.map((label, i) => ({
@@ -72,13 +74,19 @@ const bayHotspots: Hotspot[] = bayOrder.map((label, i) => ({
   w: 105,
   h: 62,
 }))
-// G sits closer to the entrance pin than the linear step predicts — nudge it
-// up and left so the hotspot hugs the actual bay instead of the pin label.
+// G and H sit closer together than the linear step predicts — nudge them so
+// each hotspot hugs its actual bay without overlapping its neighbor's center.
 const gSpot = bayHotspots.find(s => s.label === 'G')!
 gSpot.x = 682
 gSpot.y = 787
 gSpot.w = 96
 gSpot.h = 52
+
+const hSpot = bayHotspots.find(s => s.label === 'H')!
+hSpot.x = 630
+hSpot.y = 750
+hSpot.w = 85
+hSpot.h = 45
 
 const hotspots: Hotspot[] = [...buildingHotspots, ...bayHotspots]
 
