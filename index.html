@@ -22,5 +22,30 @@
   <body class="bg-slate-950 text-slate-100 antialiased">
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
+    <!--
+      Netlify Identity invite/recovery links land on whatever URL the site's
+      root points to (not necessarily /admin/), carrying a token in the URL
+      hash. The widget only picks that up if it's loaded on the page the
+      link lands on, so it needs to be here too, not just in public/admin.
+    -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', (user) => {
+          if (!user) {
+            window.netlifyIdentity.on('login', () => {
+              document.location.href = '/admin/'
+            })
+          }
+        })
+        // Invite/recovery/confirmation links carry a token in the URL hash;
+        // send the user to /admin/ afterward so they land on the CMS.
+        if (/(confirmation_token|invite_token|recovery_token)=/.test(document.location.hash)) {
+          window.netlifyIdentity.on('login', () => {
+            document.location.href = '/admin/'
+          })
+        }
+      }
+    </script>
   </body>
 </html>
