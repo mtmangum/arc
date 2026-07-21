@@ -1,8 +1,14 @@
 {
-  "categories": ["Membership", "Range Use", "Rules & Safety", "Fees", "Events"],
+  "categories": [
+    "Membership",
+    "Range Use",
+    "Rules & Safety",
+    "Fees",
+    "Events"
+  ],
   "faqs": [
     {
-      "q": "What is Austin Rifle Club?",
+      "q": "What is Austin Rifle Club??",
       "category": "Membership",
       "a": "Austin Rifle Club, Inc. is a non-profit, all-volunteer organization dedicated to the shooting sports and the education of America's youth in the areas of shooting and safe gun handling. Established in 1894 and incorporated in 1928, ARC's range is located right outside of Manor, TX on Littig Road. <strong class=\"text-white\">We are a club!</strong> Members have unlimited access to the range during range hours, and it is also our membership who maintains the range."
     },
