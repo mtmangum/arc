@@ -7,6 +7,9 @@ All notable changes to this project are documented in this file.
 ### Added
 - Calendar admin: sign-in-gated `/admin/calendar` page to add, edit, and delete events, backed by Supabase instead of localStorage — changes are now real, shared, and require authentication (`46aaf4f`)
 
+### Documentation
+- README now documents the Supabase environment setup needed to run the app with real calendar data (`6ce028b`)
+
 ### Fixed
 - Mini-calendars now anchor to the actual current month instead of a hardcoded month/year, so the default view always shows the real current month and next month (`1a7b17e`)
 
