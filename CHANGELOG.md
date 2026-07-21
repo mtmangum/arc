@@ -8,6 +8,7 @@ All notable changes to this project are documented in this file.
 - Calendar admin: sign-in-gated `/admin/calendar` page to add, edit, and delete events, backed by Supabase instead of localStorage — changes are now real, shared, and require authentication (`46aaf4f`)
 - Range Complex Map is now interactive: clickable hotspots over the aerial photo scroll to and highlight the matching range card, with hovering a card highlighting its hotspot back on the map (`60a44ce`)
 - Light theme with a header toggle (desktop + mobile), persisted and defaulting to the system's light/dark preference (`430c64c`)
+- Decap CMS admin app (`/admin`) so non-developers can edit Home, Ranges, Membership, Range Rules, and FAQ content without touching code — commits directly to `main` via Netlify's git-gateway backend, no database involved (`ea8d899`)
 
 ### Fixed
 - Numerous light-theme contrast issues: the primary amber accent and several badges/notice boxes were too low-contrast on white; a few fixed-background elements (stats strip, CTA banner, range map hotspots, Member Area logo) needed to stay theme-invariant instead of inverting with the page (`430c64c`)
