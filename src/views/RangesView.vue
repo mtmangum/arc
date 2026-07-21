@@ -19,19 +19,22 @@
           <h2 class="font-heading text-lg font-semibold text-white">Range Complex Map</h2>
           <span class="text-slate-400 text-xs">16312 Littig Rd, Manor, TX 78653</span>
         </div>
-        <div class="p-4 md:p-8 flex justify-center bg-slate-900">
-          <img
-            src="https://austinrifleclub.org/wp-content/uploads/2016/09/RangePic-1.png"
-            alt="Austin Rifle Club building and range map"
-            class="max-w-full rounded-lg border border-slate-700"
-          />
+        <div class="p-4 md:p-8 bg-slate-900">
+          <RangeMap :active-id="highlightId" @select="handleMapSelect" @hover="id => (hoveredId = id)" />
         </div>
       </div>
 
       <!-- Ranges at a glance -->
       <h2 class="font-heading text-2xl font-bold text-white mb-6">Ranges at a Glance</h2>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
-        <div v-for="range in ranges" :key="range.id" class="card-hover">
+        <div
+          v-for="range in ranges" :key="range.id"
+          :id="'range-' + slug(range.id)"
+          class="card-hover scroll-mt-40 transition-colors"
+          :class="highlightId === range.id ? 'border-amber-600 ring-1 ring-amber-600/50' : ''"
+          @mouseenter="hoveredId = range.id"
+          @mouseleave="hoveredId = null"
+        >
           <div class="flex items-center gap-3 mb-3">
             <span class="w-9 h-9 rounded-lg bg-amber-950/50 border border-brand-800/50 flex items-center justify-center font-heading font-bold text-brand-300 text-sm">
               {{ range.id }}
@@ -130,6 +133,26 @@
 </template>
 
 <script setup lang="ts">
+import { computed, ref } from 'vue'
+import RangeMap from '@/components/RangeMap.vue'
+
+// Hover is transient (live preview while the pointer is over a hotspot/card);
+// selected persists after a click so the highlight doesn't vanish the instant
+// the mouse leaves the hotspot. Hover takes priority when present.
+const hoveredId = ref<string | null>(null)
+const selectedId = ref<string | null>(null)
+const highlightId = computed(() => hoveredId.value ?? selectedId.value)
+
+function slug(id: string): string {
+  return id.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+}
+
+function handleMapSelect(id: string): void {
+  selectedId.value = id
+  const element = document.getElementById(`range-${slug(id)}`)
+  element?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+}
+
 const ranges = [
   {
     id: 'A',
