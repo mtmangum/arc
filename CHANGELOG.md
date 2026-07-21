@@ -6,6 +6,7 @@ All notable changes to this project are documented in this file.
 
 ### Added
 - Calendar admin: sign-in-gated `/admin/calendar` page to add, edit, and delete events, backed by Supabase instead of localStorage — changes are now real, shared, and require authentication (`46aaf4f`)
+- Range Complex Map is now interactive: clickable hotspots over the aerial photo scroll to and highlight the matching range card, with hovering a card highlighting its hotspot back on the map (`60a44ce`)
 
 ### Documentation
 - README now documents the Supabase environment setup needed to run the app with real calendar data (`6ce028b`)
