@@ -15,6 +15,17 @@ Install dependencies:
 npm install
 ```
 
+### Environment setup
+
+The calendar (public read, admin write) is backed by [Supabase](https://supabase.com). To run the app with real data:
+
+1. Create a Supabase project.
+2. Copy `.env.example` to `.env` and fill in `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` from your project's **Settings → API** page.
+3. Run [supabase/schema.sql](supabase/schema.sql) once in the Supabase SQL Editor to create the `calendar_events` table, RLS policies, and seed data.
+4. Create an admin user under **Authentication → Users** to sign in at `/admin/login`.
+
+Without this, the app still boots but calendar data won't load and the admin page won't work.
+
 Start the dev server:
 
 ```sh
