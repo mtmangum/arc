@@ -13,6 +13,7 @@ All notable changes to this project are documented in this file.
 ### Fixed
 - Numerous light-theme contrast issues: the primary amber accent and several badges/notice boxes were too low-contrast on white; a few fixed-background elements (stats strip, CTA banner, range map hotspots, Member Area logo) needed to stay theme-invariant instead of inverting with the page (`430c64c`)
 - Netlify deploy: every route except `/` 404'd because Vue Router's history mode needs a rewrite to `index.html` for client-side routes (`e61d7f2`)
+- Netlify Identity invite/recovery emails link to the site root, but the Identity widget was only loaded on `/admin` — the invite token went unnoticed and no password prompt appeared (`b6e7f1d`)
 
 ### Documentation
 - README now documents the Supabase environment setup needed to run the app with real calendar data (`6ce028b`)
