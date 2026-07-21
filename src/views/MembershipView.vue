@@ -51,7 +51,7 @@
               <h2 class="font-heading text-xl font-bold text-white mb-1">Family</h2>
               <p class="text-slate-400 text-sm">Couple + all children/grandchildren (≤21).</p>
             </div>
-            <span class="badge bg-amber-500/20 text-amber-300 border border-amber-700 text-xs px-2 py-1">Best Value</span>
+            <span class="badge bg-amber-500/20 text-amber-300 light:text-amber-800 border border-amber-700 text-xs px-2 py-1">Best Value</span>
           </div>
           <div class="mb-6">
             <span class="text-4xl font-heading font-bold text-white">$200</span>
@@ -59,7 +59,7 @@
           </div>
           <ul class="space-y-3 flex-1 mb-8">
             <li v-for="f in familyFeatures" :key="f.label" class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-amber-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 text-amber-400 light:text-amber-700 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
               <span class="text-sm text-slate-300">
@@ -83,7 +83,7 @@
               <p class="text-white text-sm font-medium">{{ row.label }}</p>
               <p v-if="row.note" class="text-slate-400 text-xs mt-0.5">{{ row.note }}</p>
             </div>
-            <span class="text-brand-300 font-semibold text-sm">{{ row.value }}</span>
+            <span class="text-brand-300 light:text-brand-800 font-semibold text-sm">{{ row.value }}</span>
           </div>
         </div>
       </div>
@@ -160,7 +160,7 @@ const notes = [
     title: 'Annual Renewal Required',
     body:  'All members — including Life Members — must renew every year. Renewal notices go out in early October. Lapsed 2+ years? You must rejoin as a new member.',
     iconBg: 'bg-amber-900/40',
-    icon: `<svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>`,
+    icon: `<svg class="w-4 h-4 text-amber-400 light:text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>`,
   },
   {
     title: 'Prorated First Year',
@@ -178,7 +178,7 @@ const notes = [
     title: 'Family ≠ Extended Family',
     body:  'The Family plan covers a married couple and their children/grandchildren (≤21). Siblings, parents, and extended family are not included.',
     iconBg: 'bg-red-900/40',
-    icon: `<svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`,
+    icon: `<svg class="w-4 h-4 text-red-400 light:text-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`,
   },
 ]
 </script>

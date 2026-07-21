@@ -1,3 +1,5 @@
+import plugin from 'tailwindcss/plugin'
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -55,6 +57,24 @@ export default {
           900: '#3d2410',
           950: '#2a180a',
         },
+        // Routed through CSS variables (see src/assets/main.css) so the same
+        // slate-900/text-white/etc. classes used throughout the app render
+        // correctly in both the dark (default) and light theme, without
+        // needing dark:/light: variants sprinkled through every component.
+        white: 'rgb(var(--color-white) / <alpha-value>)',
+        slate: {
+          50:  'rgb(var(--color-slate-50) / <alpha-value>)',
+          100: 'rgb(var(--color-slate-100) / <alpha-value>)',
+          200: 'rgb(var(--color-slate-200) / <alpha-value>)',
+          300: 'rgb(var(--color-slate-300) / <alpha-value>)',
+          400: 'rgb(var(--color-slate-400) / <alpha-value>)',
+          500: 'rgb(var(--color-slate-500) / <alpha-value>)',
+          600: 'rgb(var(--color-slate-600) / <alpha-value>)',
+          700: 'rgb(var(--color-slate-700) / <alpha-value>)',
+          800: 'rgb(var(--color-slate-800) / <alpha-value>)',
+          900: 'rgb(var(--color-slate-900) / <alpha-value>)',
+          950: 'rgb(var(--color-slate-950) / <alpha-value>)',
+        },
       },
       fontFamily: {
         sans: ['Georgia', 'ui-serif', 'serif'],
@@ -65,5 +85,12 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // Lets category-color classes (violet/blue/cyan/pink/amber badges, etc.)
+    // that aren't routed through the slate/white CSS variables opt into a
+    // light-theme-specific override, e.g. `text-violet-300 light:text-violet-800`.
+    plugin(({ addVariant }) => {
+      addVariant('light', ':is([data-theme="light"] &)')
+    }),
+  ],
 }

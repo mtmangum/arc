@@ -34,10 +34,10 @@
           <!-- Text -->
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-2 flex-wrap">
-              <h2 class="text-white font-semibold text-sm group-hover:text-brand-300 transition-colors">
+              <h2 class="text-white font-semibold text-sm group-hover:text-brand-300 light:group-hover:text-brand-800 transition-colors">
                 {{ doc.title }}
               </h2>
-              <span v-if="doc.badge" class="badge bg-amber-900/40 text-amber-300 border border-amber-800 text-xs">
+              <span v-if="doc.badge" class="badge bg-amber-900/40 text-amber-300 light:text-amber-800 border border-amber-800 text-xs">
                 {{ doc.badge }}
               </span>
             </div>

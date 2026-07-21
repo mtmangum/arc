@@ -16,7 +16,7 @@
       <!-- Signed-in bar -->
       <div class="flex items-center justify-between mb-8 text-sm">
         <span class="text-slate-400">Signed in as <span class="text-slate-200">{{ session?.user.email }}</span></span>
-        <button type="button" @click="handleSignOut" class="text-amber-600 hover:text-amber-400 transition-colors">
+        <button type="button" @click="handleSignOut" class="text-amber-600 hover:text-amber-400 light:hover:text-amber-800 transition-colors">
           Sign Out
         </button>
       </div>

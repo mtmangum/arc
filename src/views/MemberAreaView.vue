@@ -7,7 +7,7 @@
         <img
           src="https://austinrifleclub.org/wp-content/uploads/2024/05/Transparent.png"
           alt="Austin Rifle Club"
-          class="h-14 mx-auto mb-4 brightness-0 invert"
+          class="h-14 mx-auto mb-4 brightness-0 invert light:filter-none"
         />
         <h1 class="font-heading text-2xl font-bold text-white">Member Area</h1>
         <p class="text-slate-400 text-sm mt-1">Sign in to access renewal, forms, and member resources.</p>
@@ -24,7 +24,7 @@
             @click="activeTab = tab"
             class="flex-1 py-2 text-sm font-medium rounded-md transition-all duration-150"
             :class="activeTab === tab
-              ? 'bg-brand-600 text-white shadow-sm'
+              ? 'bg-brand-600 text-amber-50 shadow-sm'
               : 'text-slate-400 hover:text-slate-200'"
           >
             {{ tab }}
@@ -53,7 +53,7 @@
                 href="https://austinrifleclub.org/wp-login.php?action=lostpassword"
                 target="_blank"
                 rel="noopener"
-                class="text-amber-600 text-xs hover:text-brand-300 transition-colors"
+                class="text-amber-600 text-xs hover:text-brand-300 light:hover:text-brand-800 transition-colors"
               >
                 Forgot password?
               </a>
@@ -139,7 +139,7 @@
             </li>
           </ul>
 
-          <div class="rounded-lg bg-amber-900/20 border border-amber-800/60 px-4 py-3 text-amber-200 text-xs leading-relaxed">
+          <div class="rounded-lg bg-amber-900/20 border border-amber-800/60 px-4 py-3 text-amber-200 light:text-amber-900 text-xs leading-relaxed">
             Members who have not renewed by January 1 will lose gate access and may not enter the property.
             Lapsed 2+ years? You must rejoin as a new member.
           </div>
@@ -159,7 +159,7 @@
       <!-- Not a member yet -->
       <p class="text-center text-slate-500 text-sm mt-6">
         Not a member yet?
-        <RouterLink to="/membership/join" class="text-amber-600 hover:text-brand-300 transition-colors">
+        <RouterLink to="/membership/join" class="text-amber-600 hover:text-brand-300 light:hover:text-brand-800 transition-colors">
           Learn how to join →
         </RouterLink>
       </p>

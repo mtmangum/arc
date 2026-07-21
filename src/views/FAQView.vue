@@ -39,7 +39,7 @@
           @click="activeCategory = activeCategory === cat ? null : cat"
           class="text-xs px-3 py-1.5 rounded-full border transition-all duration-150 font-medium"
           :class="activeCategory === cat
-            ? 'bg-brand-600 border-brand-500 text-white'
+            ? 'bg-brand-600 border-brand-500 text-amber-50'
             : 'bg-slate-900 border-slate-700 text-slate-400 hover:border-amber-700 hover:text-slate-200'"
         >
           {{ cat }}

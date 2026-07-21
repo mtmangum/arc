@@ -24,7 +24,7 @@
       <!-- Calendars and Legend -->
       <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 mb-10">
         <!-- Mini Calendars -->
-        <div class="w-full lg:w-3/4">
+        <div class="w-full lg:w-[85%]">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div v-for="month in [0, 1]" :key="month" class="card p-4 sm:p-6" :class="month === mobileSlot ? '' : 'hidden sm:block'">
               <div class="flex items-center justify-between mb-4">
@@ -105,7 +105,7 @@
         </div>
 
         <!-- Legend -->
-        <div class="flex flex-row flex-wrap lg:flex-col gap-2 lg:gap-3 w-full lg:w-1/4">
+        <div class="flex flex-row flex-wrap lg:flex-col gap-2 lg:gap-3 w-full lg:w-[15%]">
           <button v-for="cat in categories" :key="cat.label"
             type="button"
             @click="toggleType(cat.label)"
@@ -126,7 +126,7 @@
         <div class="flex flex-wrap items-center gap-3">
           <h2 class="font-heading text-2xl font-bold text-white">{{ monthRangeLabel }}</h2>
           <button v-if="monthOffset !== 0" type="button" @click="monthOffset = 0"
-            class="text-xs font-semibold text-amber-600 hover:text-amber-400 uppercase tracking-wide transition-colors">
+            class="text-xs font-semibold text-amber-600 hover:text-amber-400 light:hover:text-amber-800 uppercase tracking-wide transition-colors">
             Back to Today
           </button>
         </div>

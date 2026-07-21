@@ -3,6 +3,44 @@
 @tailwind utilities;
 
 @layer base {
+  /*
+   * Theme colors as RGB triplets (consumed by tailwind.config.js via
+   * rgb(var(--color-x) / <alpha-value>)). Light mode is the dark palette's
+   * slate ramp mirrored (900 <-> 100, 800 <-> 200, ...) so every existing
+   * bg-slate-900 / text-slate-400 / text-white class already used throughout
+   * the app renders correctly in both themes with no per-component changes.
+   */
+  :root {
+    --color-white: 255 255 255;
+    --color-slate-50: 248 250 252;
+    --color-slate-100: 241 245 249;
+    --color-slate-200: 226 232 240;
+    --color-slate-300: 203 213 225;
+    --color-slate-400: 148 163 184;
+    --color-slate-500: 100 116 139;
+    --color-slate-600: 71 85 105;
+    --color-slate-700: 51 65 85;
+    --color-slate-800: 30 41 59;
+    --color-slate-900: 15 23 42;
+    --color-slate-950: 2 6 23;
+  }
+
+  :root[data-theme='light'] {
+    /* A warm parchment tint (rather than neutral gray) to match the amber/brand palette */
+    --color-white: 38 30 22;
+    --color-slate-50: 26 20 15;
+    --color-slate-100: 38 30 22;
+    --color-slate-200: 51 42 32;
+    --color-slate-300: 71 60 48;
+    --color-slate-400: 96 83 68;
+    --color-slate-500: 128 113 96;
+    --color-slate-600: 168 154 134;
+    --color-slate-700: 214 203 186;
+    --color-slate-800: 236 228 215;
+    --color-slate-900: 250 247 241;
+    --color-slate-950: 252 250 246;
+  }
+
   html {
     font-family: 'Georgia', ui-serif, serif;
   }
@@ -26,7 +64,7 @@
 
   .btn-secondary {
     @apply inline-flex items-center gap-2 px-6 py-3 rounded border-2 border-amber-900/60
-           hover:border-amber-800 hover:bg-amber-900/20 text-amber-100 font-semibold text-sm
+           hover:border-amber-800 hover:bg-amber-900/20 text-slate-200 font-semibold text-sm
            tracking-widest uppercase transition-all duration-200 focus:outline-none focus:ring-2
            focus:ring-amber-700 focus:ring-offset-2 focus:ring-offset-slate-950;
   }
@@ -63,6 +101,21 @@
 
   .page-header-inner {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  /*
+   * text-amber-600 is the site's primary accent color, used ~60 times as
+   * bare text on the page background. It has ~3:1 contrast on white (fails
+   * WCAG AA) but reads fine on the dark theme's near-black background, so
+   * rather than touch every call site, darken it specifically in light mode.
+   */
+  [data-theme='light'] .text-amber-600 {
+    color: rgb(146 64 14); /* amber-800 */
+  }
+  [data-theme='light'] .hover\:text-amber-600:hover {
+    color: rgb(146 64 14);
   }
 }
 

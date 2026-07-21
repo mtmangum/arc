@@ -33,8 +33,21 @@
         <!-- Desktop CTA -->
         <div class="hidden md:flex items-center gap-3">
           <RouterLink to="/member-area" class="btn-primary text-sm py-2 px-4">
-            Member Login
+            Member Area
           </RouterLink>
+          <button
+            type="button"
+            @click="toggleTheme"
+            :aria-label="theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'"
+            class="flex items-center justify-center w-9 h-9 rounded-lg border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 hover:border-amber-800/60 transition-colors"
+          >
+            <svg v-if="theme === 'dark'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.36 6.36l-.7-.7M6.34 6.34l-.7-.7m12.02 0l-.7.7M6.34 17.66l-.7.7M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          </button>
         </div>
 
         <!-- Mobile hamburger -->
@@ -68,9 +81,22 @@
           >
             {{ link.label }}
           </RouterLink>
+          <button
+            type="button"
+            @click="toggleTheme"
+            class="mobile-nav-link flex items-center gap-2"
+          >
+            <svg v-if="theme === 'dark'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.36 6.36l-.7-.7M6.34 6.34l-.7-.7m12.02 0l-.7.7M6.34 17.66l-.7.7M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+            {{ theme === 'dark' ? 'Light Theme' : 'Dark Theme' }}
+          </button>
           <div class="pt-3 border-t border-slate-800 mt-2">
             <RouterLink to="/member-area" class="btn-primary w-full justify-center" @click="closeMenu">
-              Member Login
+              Member Area
             </RouterLink>
           </div>
         </nav>
@@ -82,6 +108,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { theme, toggleTheme } from '@/lib/theme'
 
 const route = useRoute()
 const menuOpen = ref(false)
@@ -107,17 +134,17 @@ function isActive(path: string) {
 <style scoped>
 .nav-link {
   @apply px-3 py-2 rounded text-sm font-medium text-slate-400
-         hover:text-amber-200 hover:bg-slate-800/40 transition-all duration-150;
+         hover:text-amber-600 hover:bg-slate-800/40 transition-all duration-150;
 }
 .nav-link-active {
-  @apply text-amber-500 bg-amber-900/20;
+  @apply text-amber-600 light:text-amber-800 bg-amber-900/20;
 }
 .mobile-nav-link {
   @apply px-4 py-2.5 rounded text-sm font-medium text-slate-400
-         hover:text-amber-200 hover:bg-slate-800 transition-all duration-150;
+         hover:text-amber-600 hover:bg-slate-800 transition-all duration-150;
 }
 .mobile-nav-link-active {
-  @apply text-amber-500 bg-amber-900/30;
+  @apply text-amber-600 light:text-amber-800 bg-amber-900/30;
 }
 .mobile-menu-enter-active,
 .mobile-menu-leave-active {

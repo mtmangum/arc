@@ -14,11 +14,17 @@
 
       <!-- Hero content -->
       <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-24">
-        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-950/50 border border-amber-800/50 text-brand-300 text-xs font-semibold uppercase tracking-widest mb-6">
+        <img
+          src="@/assets/logo.png"
+          alt="Austin Rifle Club"
+          class="h-44 sm:h-52 w-auto object-contain mx-auto mb-6"
+        />
+
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-950/50 light:bg-amber-100 border border-amber-800/50 text-brand-300 light:text-brand-800 text-xs font-semibold uppercase tracking-widest mb-6">
           Est. 1894 · Manor, Texas
         </span>
 
-        <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl font-bold text-white leading-tight mb-6">
+        <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-6">
           Welcome to<br />
           <span class="text-amber-600">Austin Rifle Club</span>
         </h1>
@@ -34,7 +40,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
-            View Membership
+            Become a Member
           </RouterLink>
           <RouterLink to="/calendar" class="btn-secondary text-base px-8 py-3.5">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,7 +74,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div v-for="stat in stats" :key="stat.label">
-            <p class="text-2xl md:text-3xl font-heading font-bold text-white">{{ stat.value }}</p>
+            <p class="text-2xl md:text-3xl font-heading font-bold text-amber-50">{{ stat.value }}</p>
             <p class="text-brand-200 text-xs sm:text-sm mt-0.5">{{ stat.label }}</p>
           </div>
         </div>
@@ -100,7 +106,7 @@
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div v-for="feature in features" :key="feature.title" class="card-hover">
-              <div class="w-10 h-10 rounded-lg bg-amber-950/50 flex items-center justify-center mb-3" v-html="feature.icon" />
+              <div class="w-10 h-10 rounded-lg bg-amber-950/50 light:bg-amber-100 light:border light:border-amber-300 flex items-center justify-center mb-3" v-html="feature.icon" />
               <h3 class="text-white font-semibold text-sm mb-1">{{ feature.title }}</h3>
               <p class="text-slate-400 text-xs leading-relaxed">{{ feature.desc }}</p>
             </div>
@@ -147,7 +153,7 @@
         </p>
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           <div v-for="(step, i) in joinSteps" :key="step.label" class="relative card text-center">
-            <div class="w-10 h-10 rounded-full bg-brand-700 flex items-center justify-center text-white font-heading font-bold text-lg mx-auto mb-4">
+            <div class="w-10 h-10 rounded-full bg-brand-700 flex items-center justify-center text-amber-50 font-heading font-bold text-lg mx-auto mb-4">
               {{ i + 1 }}
             </div>
             <h3 class="text-white font-semibold text-sm mb-2">{{ step.label }}</h3>
@@ -167,7 +173,7 @@
         <div class="absolute inset-0" style="background-image: radial-gradient(circle, #22c55e 1px, transparent 1px); background-size: 30px 30px;" />
       </div>
       <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="font-heading text-3xl md:text-4xl font-bold text-white mb-4">
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-amber-50 mb-4">
           Ready to get on the range?
         </h2>
         <p class="text-brand-200 text-base md:text-lg mb-8">
@@ -175,7 +181,7 @@
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <RouterLink to="/calendar" class="btn-amber">View This Month's Calendar</RouterLink>
-          <RouterLink to="/faq" class="btn-secondary border-amber-700 hover:border-brand-400">Read the FAQ</RouterLink>
+          <RouterLink to="/faq" class="btn-secondary border-amber-700 hover:border-brand-400 light:!text-amber-50">Read the FAQ</RouterLink>
         </div>
       </div>
     </section>

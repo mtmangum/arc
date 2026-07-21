@@ -17,10 +17,14 @@
       <div class="card mb-14 overflow-hidden p-0">
         <div class="bg-slate-800/50 px-6 py-4 border-b border-slate-700 flex items-center justify-between">
           <h2 class="font-heading text-lg font-semibold text-white">Range Complex Map</h2>
-          <span class="text-slate-400 text-xs">16312 Littig Rd, Manor, TX 78653</span>
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=16312+Littig+Rd,+Manor,+TX+78653"
+            target="_blank" rel="noopener"
+            class="text-slate-400 hover:text-amber-600 text-xs transition-colors"
+          >16312 Littig Rd, Manor, TX 78653</a>
         </div>
         <div class="p-4 md:p-8 bg-slate-900">
-          <RangeMap :active-id="highlightId" @select="handleMapSelect" @hover="id => (hoveredId = id)" />
+          <RangeMap :active-id="highlightId" :ranges="ranges" @select="handleMapSelect" @hover="id => (hoveredId = id)" />
         </div>
       </div>
 
@@ -36,7 +40,7 @@
           @mouseleave="hoveredId = null"
         >
           <div class="flex items-center gap-3 mb-3">
-            <span class="w-9 h-9 rounded-lg bg-amber-950/50 border border-brand-800/50 flex items-center justify-center font-heading font-bold text-brand-300 text-sm">
+            <span class="w-9 h-9 rounded-lg bg-amber-950/50 light:bg-amber-100 border border-brand-800/50 flex items-center justify-center font-heading font-bold text-brand-300 light:text-brand-800 text-sm">
               {{ range.id }}
             </span>
             <h3 class="text-white font-semibold text-sm">{{ range.name }}</h3>

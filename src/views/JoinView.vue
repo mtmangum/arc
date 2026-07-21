@@ -3,7 +3,7 @@
     <!-- Page Header -->
     <div class="page-header">
       <div class="page-header-inner">
-        <RouterLink to="/membership" class="inline-flex items-center gap-1 text-amber-600 text-sm hover:text-brand-300 mb-4 transition-colors">
+        <RouterLink to="/membership" class="inline-flex items-center gap-1 text-amber-600 text-sm hover:text-brand-300 light:hover:text-brand-800 mb-4 transition-colors">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
           </svg>
@@ -20,17 +20,17 @@
 
       <!-- Work Day notice banner -->
       <div class="rounded-xl border border-amber-700/60 bg-amber-900/20 p-5 flex gap-4 mb-14">
-        <svg class="w-6 h-6 text-amber-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-6 h-6 text-amber-400 light:text-amber-700 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
         </svg>
         <div>
-          <p class="text-amber-200 font-semibold text-sm mb-1">Volunteer Requirement — Notice to New Members</p>
-          <p class="text-amber-100/70 text-sm leading-relaxed">
+          <p class="text-amber-200 light:text-amber-900 font-semibold text-sm mb-1">Volunteer Requirement — Notice to New Members</p>
+          <p class="text-amber-100/70 light:text-amber-900/80 text-sm leading-relaxed">
             ARC is run entirely by volunteers. All new and returning members must attend
-            <strong class="text-amber-200">3 Work Days</strong> (2nd Saturday of each month, 8am–12pm, all ranges closed)
+            <strong class="text-amber-200 light:text-amber-900">3 Work Days</strong> (2nd Saturday of each month, 8am–12pm, all ranges closed)
             within their first year to move from Probationary to Full/Voting status.
-            Failing to complete this adds a <strong class="text-amber-200">$50 non-completion fee</strong> to each annual renewal.
+            Failing to complete this adds a <strong class="text-amber-200 light:text-amber-900">$50 non-completion fee</strong> to each annual renewal.
           </p>
         </div>
       </div>
@@ -45,7 +45,7 @@
             <!-- Step number -->
             <div class="relative z-10 shrink-0">
               <div class="w-16 h-16 rounded-2xl flex items-center justify-center font-heading font-bold text-xl border-2 transition-colors"
-                :class="step.complete ? 'bg-brand-700 border-amber-700 text-white' : 'bg-slate-900 border-slate-700 text-slate-300'">
+                :class="step.complete ? 'bg-brand-700 border-amber-700 text-amber-50' : 'bg-slate-900 border-slate-700 text-slate-300'">
                 {{ i + 1 }}
               </div>
             </div>
@@ -57,7 +57,7 @@
 
               <ul v-if="step.bullets" class="space-y-2 mb-4">
                 <li v-for="b in step.bullets" :key="b" class="flex items-start gap-2 text-sm text-slate-400">
-                  <svg class="w-4 h-4 text-brand-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg class="w-4 h-4 text-brand-500 light:text-brand-800 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                   </svg>
                   {{ b }}
