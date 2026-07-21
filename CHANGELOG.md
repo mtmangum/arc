@@ -17,6 +17,7 @@ All notable changes to this project are documented in this file.
 
 ### Documentation
 - README now documents the Supabase environment setup needed to run the app with real calendar data (`6ce028b`)
+- README now documents the Decap CMS setup: what's editable, the Netlify Identity/Git Gateway steps, and the range-id caveat (`c3606c9`)
 
 ### Fixed
 - Mini-calendars now anchor to the actual current month instead of a hardcoded month/year, so the default view always shows the real current month and next month (`1a7b17e`)
