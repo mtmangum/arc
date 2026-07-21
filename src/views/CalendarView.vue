@@ -47,7 +47,7 @@
                 </template>
 
                 <h3 class="text-white font-semibold text-sm text-center flex-1">
-                  {{ new Date(2026, monthIndex(month), 1).toLocaleString('default', { month: 'long', year: 'numeric' }) }}
+                  {{ new Date(anchorYear, monthIndex(month), 1).toLocaleString('default', { month: 'long', year: 'numeric' }) }}
                 </h3>
 
                 <!-- Right slot: the second card always owns the next arrow -->
@@ -89,7 +89,7 @@
                     :class="idx % 7 <= 1 ? 'left-0' : idx % 7 >= 5 ? 'right-0' : 'left-1/2 -translate-x-1/2'"
                   >
                     <p class="text-white font-semibold text-xs mb-2">
-                      {{ new Date(2026, monthIndex(month), date).toLocaleDateString('default', { weekday: 'long', month: 'long', day: 'numeric' }) }}
+                      {{ new Date(anchorYear, monthIndex(month), date).toLocaleDateString('default', { weekday: 'long', month: 'long', day: 'numeric' }) }}
                     </p>
                     <ul class="space-y-1.5">
                       <li v-for="ev in getEventsForDay(date, monthIndex(month))" :key="ev.title" class="flex items-start gap-1.5">
@@ -245,31 +245,34 @@ function isolateType(type: string): void {
 
 const filteredEvents = computed(() => calendarEvents.filter(event => activeTypes.value.has(event.type)))
 
+const today = new Date()
+const anchorYear = today.getFullYear()
+const anchorMonth = today.getMonth()
+
 const monthOffset = ref(0)
 
 function monthIndex(month: number): number {
-  return 5 + monthOffset.value + month
+  return anchorMonth + monthOffset.value + month
 }
 
 function monthKey(month: number): string {
-  const d = new Date(2026, monthIndex(month), 1)
+  const d = new Date(anchorYear, monthIndex(month), 1)
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
 }
 
 // On mobile only one of the two displayed months is shown at a time;
 // prefer whichever one is the real current month, defaulting to the first.
 const mobileSlot = computed(() => {
-  const today = new Date()
   const isRealCurrentMonth = (month: number): boolean => {
-    const d = new Date(2026, monthIndex(month), 1)
+    const d = new Date(anchorYear, monthIndex(month), 1)
     return d.getFullYear() === today.getFullYear() && d.getMonth() === today.getMonth()
   }
   return isRealCurrentMonth(1) ? 1 : 0
 })
 
 const monthRangeLabel = computed(() => {
-  const start = new Date(2026, monthIndex(0), 1)
-  const end = new Date(2026, monthIndex(1), 1)
+  const start = new Date(anchorYear, monthIndex(0), 1)
+  const end = new Date(anchorYear, monthIndex(1), 1)
   const startMonthName = start.toLocaleString('default', { month: 'long' })
   const endLabel = end.toLocaleString('default', { month: 'long', year: 'numeric' })
   if (start.getFullYear() === end.getFullYear()) {
@@ -304,8 +307,8 @@ function getLinkColorClasses(type: string): string[] {
 }
 
 function getCalendarDays(month: number): (number | null)[] {
-  const firstDay = new Date(2026, month, 1).getDay()
-  const daysInMonth = new Date(2026, month + 1, 0).getDate()
+  const firstDay = new Date(anchorYear, month, 1).getDay()
+  const daysInMonth = new Date(anchorYear, month + 1, 0).getDate()
   const days: (number | null)[] = []
   
   for (let i = 0; i < firstDay; i++) {
@@ -331,7 +334,7 @@ function scrollToDate(day: number, month: number): void {
 }
 
 function getDateStr(day: number, month: number): string {
-  const d = new Date(2026, month, day)
+  const d = new Date(anchorYear, month, day)
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
 
