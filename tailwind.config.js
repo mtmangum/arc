@@ -5,6 +5,7 @@ export default {
   content: [
     './index.html',
     './src/**/*.{vue,js,ts,jsx,tsx}',
+    './src/content/**/*.json',
   ],
   safelist: [
     'text-violet-300',

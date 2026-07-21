@@ -1,0 +1,44 @@
+{
+  "stats": [
+    { "value": "1894", "label": "Year Founded" },
+    { "value": "200 yd", "label": "Longest Rifle Range" },
+    { "value": "7 Days", "label": "Per Week Access" },
+    { "value": "12+", "label": "Range Bays" }
+  ],
+  "features": [
+    {
+      "title": "Member-Operated",
+      "desc": "Entirely volunteer-run. Members maintain the property and have a real say in how it is managed.",
+      "icon": "people"
+    },
+    {
+      "title": "Private & Secure",
+      "desc": "Badge-access gate. Range reserved exclusively for members, guests, and match participants.",
+      "icon": "shield"
+    },
+    {
+      "title": "Multiple Disciplines",
+      "desc": "Pistol, rifle, benchrest, silhouette, steel challenge, muzzleloading, air guns & more.",
+      "icon": "grid"
+    },
+    {
+      "title": "Youth Programs",
+      "desc": "Committed to educating America's youth in shooting sports and safe gun handling.",
+      "icon": "youth"
+    }
+  ],
+  "disciplines": [
+    { "name": "Precision Benchrest", "desc": "Range C — centerfire & rimfire benchrest up to 200 yards." },
+    { "name": "USPSA / Steel Challenge", "desc": "Ranges G–L host regular APSC club matches and steel challenge events." },
+    { "name": "Silhouette Shooting", "desc": "Ranges D & E — hunter pistol, lever action, and smallbore rifle silhouette." },
+    { "name": "Air Guns", "desc": "Indoor 10m air rifle and air pistol (limited access)." },
+    { "name": "Muzzle Loading", "desc": "Range A supports black powder and junior muzzle loading practice." },
+    { "name": "High Power Rifle", "desc": "Range C — monthly high power rifle matches." }
+  ],
+  "joinSteps": [
+    { "label": "Sign Up", "desc": "Email membership to request the application link and fill out your form." },
+    { "label": "Safety Evaluation", "desc": "One-on-one RSO evaluation. Bring your own firearm." },
+    { "label": "Orientation Class", "desc": "Sunday afternoon class at the ARC Education Building (~2 hrs)." },
+    { "label": "Probationary Period", "desc": "6 months + 3 volunteer Work Days to become a full voting member." }
+  ]
+}

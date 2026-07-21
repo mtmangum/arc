@@ -112,12 +112,13 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import faqContent from '@/content/faq.json'
 
 const search = ref('')
 const openIndex = ref<number | null>(null)
 const activeCategory = ref<string | null>(null)
 
-const categories = ['Membership', 'Range Use', 'Rules & Safety', 'Fees', 'Events']
+const categories: string[] = faqContent.categories
 
 interface FAQ {
   q: string
@@ -125,133 +126,7 @@ interface FAQ {
   category: string
 }
 
-const faqs: FAQ[] = [
-  {
-    q: 'What is Austin Rifle Club?',
-    category: 'Membership',
-    a: 'Austin Rifle Club, Inc. is a non-profit, all-volunteer organization dedicated to the shooting sports and the education of America\'s youth in the areas of shooting and safe gun handling. Established in 1894 and incorporated in 1928, ARC\'s range is located right outside of Manor, TX on Littig Road. <strong class="text-white">We are a club!</strong> Members have unlimited access to the range during range hours, and it is also our membership who maintains the range.',
-  },
-  {
-    q: 'Is the public allowed to shoot on the range?',
-    category: 'Membership',
-    a: 'No. Austin Rifle Club is a private club. Only members and their guests are allowed to use the range. Memberships are annual — we do not offer hourly, daily, weekly, or monthly options. Guests must be directly supervised by a full member and signed in (limit: twice per year; new members may not bring guests). Family membership options are available. To host a commercial class or event, contact <a href="mailto:business@austinrifleclub.org" class="text-amber-600 hover:underline">business@austinrifleclub.org</a>.',
-  },
-  {
-    q: 'I just got my first gun — is ARC membership right for me?',
-    category: 'Membership',
-    a: 'Probably not right now. We require members to use firearms safely without assistance. This is verified in the Prospect Safety Evaluation. There are NRA Basics instructors who teach at ARC and other ranges in the area who can help you get started. Once you can safely and independently handle and shoot a firearm, you are welcome to join.',
-  },
-  {
-    q: 'Can I get a range tour before joining?',
-    category: 'Membership',
-    a: 'We are run completely by volunteers with no paid staff, so we cannot offer range tours. You can review the <a href="/ranges" class="text-amber-600 hover:underline">range overviews</a> and <a href="/range-rules" class="text-amber-600 hover:underline">range rules</a> online. As an alternative, attend a match — all matches are open to non-members. Contact the match director via the calendar entry. Remember: even as an observer, you must remain on the specific range(s) assigned to the match.',
-  },
-  {
-    q: 'What is a Prospect Safety Evaluation?',
-    category: 'Membership',
-    a: 'All membership applicants must be evaluated by an ARC Range Safety Officer to ensure they can handle firearms and use the range safely on their own and in the presence of others. This is a one-on-one evaluation held immediately prior to the Range Orientation Class for convenience. See <a href="/membership/join" class="text-amber-600 hover:underline">How to Join</a> for more details.',
-  },
-  {
-    q: 'Is Range Orientation Class ever canceled?',
-    category: 'Membership',
-    a: 'If a class is canceled, all registered students will be notified by email.',
-  },
-  {
-    q: 'Can I include parents, siblings, or extended family in a Family Membership?',
-    category: 'Membership',
-    a: '<strong class="text-white">No.</strong> The Family membership is for a married couple to join as full members at a reduced rate, with all of their children included at the family rate of $200/year. Extended family such as parents, siblings, etc. are not eligible.',
-  },
-  {
-    q: 'What does it cost to join the club?',
-    category: 'Fees',
-    a: 'See the <a href="/membership" class="text-amber-600 hover:underline">Membership page</a> for all options. Dues are prorated for the first year depending on the month you join — do not bring exact payment to orientation unless you know your prorated amount. Add a $200 initiation fee and, if applicable, a $15 background check fee. Range use is free for dues-paid members; matches, classes, and special events may have their own fees.',
-  },
-  {
-    q: 'Do I have to renew my membership every year?',
-    category: 'Membership',
-    a: '<strong class="text-white">Yes!</strong> All members must renew annually, including Life Members. Renewal ensures your safety rule knowledge stays current and your contact information is up to date.',
-  },
-  {
-    q: 'What ranges and events take up which ranges, and when?',
-    category: 'Events',
-    a: 'Always check the <a href="/calendar" class="text-amber-600 hover:underline">calendar</a> before visiting. Click any individual event to see which Range Venue is reserved. It\'s no fun to arrive only to find the range you wanted is occupied by a match.',
-  },
-  {
-    q: 'Where can I park at the range?',
-    category: 'Range Use',
-    a: '<strong class="text-white">North side (Ranges A–E):</strong> Park directly in front of the shooting positions at each range, or in the grass across the road (drive on the road, not the grass). <strong class="text-white">South side (Ranges G–L):</strong> Use the designated parking area or park off the service road — keep the road clear. If you\'re the only member on a bay, parking beside or behind the firing line is fine.',
-  },
-  {
-    q: 'What target sticks do I need for Ranges B, H, I, J, K, and L?',
-    category: 'Range Use',
-    a: 'The cheapest rounded-corner sticks from Lowe\'s or Home Depot work best — usually under $1.50 each (2024 pricing). Cut them to 5 feet long; shorter limits target placement options. For small vehicles, two-part bolted sticks are an option (contact the safety director for details). Used cardboard backers are nearly always available in the used-target cages on Ranges H–L.',
-  },
-  {
-    q: 'How do I use my ARC badge to access the range?',
-    category: 'Range Use',
-    a: 'Place your badge on the black keypad, accessible through the driver\'s side window. <strong class="text-white">Triple beep</strong> = access granted. <strong class="text-white">Long solid beep</strong> = lapsed or suspended membership. Always scan your badge when entering <em>and</em> exiting. Never tailgate through the gate or allow another car to follow you through.',
-  },
-  {
-    q: 'What are the range hours?',
-    category: 'Range Use',
-    a: 'Shooting is permitted 7 days a week, 30 minutes before sunrise to 30 minutes after sunset, including holidays. Please be considerate of neighbors. After hours, members may be on the property but shooting is not permitted. Partial and full closures are shown on the calendar.',
-  },
-  {
-    q: 'What ranges and distances do you have?',
-    category: 'Range Use',
-    a: `<ul class="space-y-1 list-none">
-      <li>Centerfire rifle: up to <strong class="text-white">200 yards</strong></li>
-      <li>Shorter rifle ranges: 100 yd, 50 yd, 25 yd, 100/75/50/40m</li>
-      <li>Pistols, PCCs, black powder, shotgun, rimfire: 1–100m (varies by range)</li>
-      <li>Indoor 10m air rifle and air pistol (limited access)</li>
-    </ul>`,
-  },
-  {
-    q: 'Can I draw from a holster and shoot? How fast can I shoot?',
-    category: 'Rules & Safety',
-    a: 'Drawing from a belt holster is allowed on some ranges, but all shooting must be done with a sight picture acquired. Rapid fire is limited to the rate at which you can acquire a proper sight picture between shots.',
-  },
-  {
-    q: 'Can I shoot multiple targets or steel targets?',
-    category: 'Rules & Safety',
-    a: 'Yes on some ranges, no on others. The rules for multiple targets and steel are covered in New Member Orientation. Refer also to the <a href="https://austinrifleclub.org/files/SteelQuickRef.pdf" target="_blank" rel="noopener" class="text-amber-600 hover:underline">Steel Target Quick Reference</a> and the <a href="/range-rules" class="text-amber-600 hover:underline">Firearm Use by Range</a> document.',
-  },
-  {
-    q: 'Can I move around and shoot?',
-    category: 'Rules & Safety',
-    a: '<strong class="text-white">No.</strong> Movement while shooting is not permitted except when participating in a match or an ARC-authorized match practice. Full members with Range Safety Officer credentials may apply to hold authorized practices.',
-  },
-  {
-    q: 'Are NFA firearms allowed?',
-    category: 'Rules & Safety',
-    a: 'Legal suppressors, SBRs (short-barreled rifles), and SBSs (short-barreled shotguns) are welcome. Machine guns and simulated automatic fire — including bump stocks, forced-reset triggers (FRTs), Switches (SS), and similar devices — are <strong class="text-white">not allowed</strong>.',
-  },
-  {
-    q: 'Can I buy targets, ammo, or supplies at the range?',
-    category: 'Range Use',
-    a: 'No. There are no retail sales at the range. Bring everything you need.',
-  },
-  {
-    q: 'How busy does it get? Can I reserve a range?',
-    category: 'Range Use',
-    a: 'Outside of scheduled matches, classes, and events on the calendar, the ranges are almost never completely full. Range reservations are not available for general use — only for calendar-listed events.',
-  },
-  {
-    q: 'How long does it take to join?',
-    category: 'Membership',
-    a: 'You typically receive your range access badge after completing the monthly new member orientation, paying your fees, and passing the safety evaluation. New member dues are prorated for the first year.',
-  },
-  {
-    q: 'How do I renew my membership?',
-    category: 'Membership',
-    a: 'Renewal notices are sent in early October. Log in to the <a href="/member-area" class="text-amber-600 hover:underline">Member Area</a> and click the Renewal icon. Members who renew before January 1 will have no interruption of access. Lapsed access takes one full business day to reinstate after payment. If lapsed 2+ years, you must <a href="/membership/join" class="text-amber-600 hover:underline">rejoin as a new member</a>. For issues, email <a href="mailto:membership@austinrifleclub.org" class="text-amber-600 hover:underline">membership@austinrifleclub.org</a>.',
-  },
-  {
-    q: 'What if I have other questions?',
-    category: 'Membership',
-    a: 'Read through the range rules and/or the quick reference cards. If your question remains, contact the Membership team using the email address in the joining instructions.',
-  },
-]
+const faqs: FAQ[] = faqContent.faqs
 
 const filteredFaqs = computed(() => {
   let list = faqs

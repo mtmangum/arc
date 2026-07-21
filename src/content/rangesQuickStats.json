@@ -1,0 +1,8 @@
+{
+  "quickStats": [
+    { "value": "200 yd", "label": "Max centerfire rifle distance" },
+    { "value": "10m", "label": "Indoor air gun range" },
+    { "value": "12+", "label": "Total shooting bays" },
+    { "value": "7 days", "label": "Weekly access" }
+  ]
+}

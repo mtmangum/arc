@@ -1,0 +1,229 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# For local testing without Netlify, run `npx decap-server` in a second
+# terminal and uncomment the two lines below (then re-comment before
+# deploying — local_backend bypasses git-gateway entirely).
+# local_backend: true
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: home
+    label: Home Page
+    files:
+      - name: home
+        label: Home Page Content
+        file: src/content/home.json
+        fields:
+          - label: Stats Strip
+            name: stats
+            widget: list
+            summary: '{{fields.value}} — {{fields.label}}'
+            fields:
+              - { label: Value, name: value, widget: string }
+              - { label: Label, name: label, widget: string }
+          - label: "\"About the Club\" Features"
+            name: features
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: desc, widget: text }
+              - label: Icon
+                name: icon
+                widget: select
+                options: [people, shield, grid, youth]
+          - label: Shooting Disciplines
+            name: disciplines
+            widget: list
+            summary: '{{fields.name}}'
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Description, name: desc, widget: text }
+          - label: "\"Join in 4 Steps\" Steps"
+            name: joinSteps
+            widget: list
+            summary: '{{fields.label}}'
+            fields:
+              - { label: Step Label, name: label, widget: string }
+              - { label: Description, name: desc, widget: text }
+
+  - name: ranges
+    label: Ranges Page
+    files:
+      - name: range-a
+        label: Range A
+        file: src/content/ranges/a.json
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Description, name: desc, widget: text }
+          - { label: Tags, name: tags, widget: list }
+      - name: range-b
+        label: Range B
+        file: src/content/ranges/b.json
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Description, name: desc, widget: text }
+          - { label: Tags, name: tags, widget: list }
+      - name: range-c
+        label: Range C
+        file: src/content/ranges/c.json
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Description, name: desc, widget: text }
+          - { label: Tags, name: tags, widget: list }
+      - name: range-d
+        label: Range D
+        file: src/content/ranges/d.json
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Description, name: desc, widget: text }
+          - { label: Tags, name: tags, widget: list }
+      - name: range-e
+        label: Range E
+        file: src/content/ranges/e.json
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Description, name: desc, widget: text }
+          - { label: Tags, name: tags, widget: list }
+      - name: range-g
+        label: Range G
+        file: src/content/ranges/g.json
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Description, name: desc, widget: text }
+          - { label: Tags, name: tags, widget: list }
+      - name: range-h-k
+        label: Ranges H – K
+        file: src/content/ranges/h-k.json
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Description, name: desc, widget: text }
+          - { label: Tags, name: tags, widget: list }
+      - name: range-l
+        label: Range L
+        file: src/content/ranges/l.json
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Description, name: desc, widget: text }
+          - { label: Tags, name: tags, widget: list }
+      - name: range-f
+        label: Range F (Indoor)
+        file: src/content/ranges/f.json
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Description, name: desc, widget: text }
+          - { label: Tags, name: tags, widget: list }
+      - name: ranges-quick-stats
+        label: Quick Stats Row
+        file: src/content/rangesQuickStats.json
+        fields:
+          - label: Quick Stats
+            name: quickStats
+            widget: list
+            summary: '{{fields.value}} — {{fields.label}}'
+            fields:
+              - { label: Value, name: value, widget: string }
+              - { label: Label, name: label, widget: string }
+
+  - name: membership
+    label: Membership Page
+    files:
+      - name: membership
+        label: Membership Page Content
+        file: src/content/membership.json
+        fields:
+          - label: Individual Plan Features
+            name: individualFeatures
+            widget: list
+            summary: '{{fields.label}}'
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Detail, name: detail, widget: string }
+          - label: Family Plan Features
+            name: familyFeatures
+            widget: list
+            summary: '{{fields.label}}'
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Detail, name: detail, widget: string }
+          - label: Fee Breakdown Rows
+            name: feeRows
+            widget: list
+            summary: '{{fields.label}} — {{fields.value}}'
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Value, name: value, widget: string }
+              - { label: Note, name: note, widget: string }
+          - label: Add-Ons
+            name: addons
+            widget: list
+            summary: '{{fields.label}}'
+            fields:
+              - { label: Price, name: price, widget: string }
+              - { label: Label, name: label, widget: string }
+              - { label: Description, name: desc, widget: text }
+          - label: Important Notes
+            name: notes
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Body, name: body, widget: text }
+              - label: Icon
+                name: icon
+                widget: select
+                options: [renewal, prorated, volunteer, warning]
+
+  - name: rangeRules
+    label: Range Rules Page
+    files:
+      - name: rangeRules
+        label: Range Rules Page Content
+        file: src/content/rangeRules.json
+        fields:
+          - label: PDF Documents
+            name: documents
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: desc, widget: text }
+              - { label: PDF URL, name: url, widget: string }
+              - { label: Updated (e.g. "March 2025"), name: updated, widget: string }
+              - { label: Badge (optional, e.g. "Authoritative"), name: badge, widget: string, required: false }
+          - label: Key Rules at a Glance
+            name: keyRules
+            widget: list
+            summary: '{{fields.label}}'
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Note, name: note, widget: text }
+              - { label: Allowed?, name: allowed, widget: boolean }
+
+  - name: faq
+    label: FAQ Page
+    files:
+      - name: faq
+        label: FAQ Page Content
+        file: src/content/faq.json
+        fields:
+          - label: Categories
+            name: categories
+            widget: list
+          - label: Questions
+            name: faqs
+            widget: list
+            summary: '{{fields.q}}'
+            fields:
+              - { label: Question, name: q, widget: string }
+              - label: Answer (HTML allowed, e.g. <strong>, <a href="...">)
+                name: a
+                widget: text
+              - label: Category
+                name: category
+                widget: select
+                options: [Membership, Range Use, Rules & Safety, Fees, Events]

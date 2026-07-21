@@ -104,7 +104,7 @@
       <div class="max-w-4xl mx-auto grid sm:grid-cols-2 gap-5 mb-16">
         <div v-for="note in notes" :key="note.title" class="card bg-slate-900/60">
           <div class="flex items-start gap-3">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" :class="note.iconBg" v-html="note.icon" />
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" :class="NOTE_ICON_KINDS[note.icon].iconBg" v-html="NOTE_ICON_KINDS[note.icon].icon" />
             <div>
               <h3 class="text-white font-semibold text-sm mb-1">{{ note.title }}</h3>
               <p class="text-slate-400 text-xs leading-relaxed">{{ note.body }}</p>
@@ -123,62 +123,12 @@
 </template>
 
 <script setup lang="ts">
-const individualFeatures = [
-  { label: 'Annual Dues',         detail: '$150/year (prorated first year)' },
-  { label: 'Unlimited Range Use', detail: 'during published hours' },
-  { label: 'Spouse Add-On',       detail: '$25/year' },
-  { label: 'Junior Add-On',       detail: '$10/year per child/grandchild (≤21)' },
-  { label: 'Background Check',    detail: 'waived with valid Texas LTC' },
-]
+import membershipContent from '@/content/membership.json'
+import { NOTE_ICON_KINDS } from '@/lib/icons'
 
-const familyFeatures = [
-  { label: 'Annual Dues',          detail: '$200/year (prorated first year)' },
-  { label: 'Unlimited Range Use',  detail: 'for all covered members' },
-  { label: 'Spouse Included',      detail: 'full independent membership' },
-  { label: 'Juniors Included',     detail: 'all children/grandchildren ≤21' },
-  { label: 'Background Check',     detail: 'waived with valid Texas LTC' },
-]
-
-const feeRows = [
-  { label: 'Initiation Fee',        value: '$200 (one-time)', note: 'Paid at time of joining. Non-refundable.' },
-  { label: 'Individual Dues',       value: '$150/year',       note: 'Prorated in your first calendar year.' },
-  { label: 'Family Dues',           value: '$200/year',       note: 'Covers spouse + all juniors.' },
-  { label: 'Background Check',      value: '$15',             note: 'Waived if you present an unexpired Texas License to Carry.' },
-  { label: 'Spouse Add-On',         value: '$25/year',        note: 'Individual plan only. Spouse must meet all primary member requirements.' },
-  { label: 'Junior Add-On',         value: '$10/year/each',   note: 'Individual plan; included in Family plan.' },
-  { label: 'Work Day Non-Completion Fee', value: '+$50/renewal', note: 'Added if 3 volunteer Work Days not completed within first year.' },
-]
-
-const addons = [
-  { price: '$25/yr', label: 'Spouse (Individual Plan)', desc: 'Must independently meet all primary member requirements.' },
-  { price: '$10/yr', label: 'Junior',                   desc: 'Children or grandchildren aged 21 or under. Included in Family plan.' },
-  { price: 'Free',   label: 'Match Participation',      desc: 'Range use during club-hosted matches is open to non-members.' },
-]
-
-const notes = [
-  {
-    title: 'Annual Renewal Required',
-    body:  'All members — including Life Members — must renew every year. Renewal notices go out in early October. Lapsed 2+ years? You must rejoin as a new member.',
-    iconBg: 'bg-amber-900/40',
-    icon: `<svg class="w-4 h-4 text-amber-400 light:text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>`,
-  },
-  {
-    title: 'Prorated First Year',
-    body:  'New member dues are prorated depending on the month you join. Do not bring exact payment to orientation unless you know the prorated amount.',
-    iconBg: 'bg-amber-950/40',
-    icon: `<svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
-  },
-  {
-    title: 'Volunteer Requirement',
-    body:  'New and returning members must complete 3 Work Days (2nd Saturday of each month, 8am–12pm) within the first year to achieve full voting membership.',
-    iconBg: 'bg-violet-900/40',
-    icon: `<svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
-  },
-  {
-    title: 'Family ≠ Extended Family',
-    body:  'The Family plan covers a married couple and their children/grandchildren (≤21). Siblings, parents, and extended family are not included.',
-    iconBg: 'bg-red-900/40',
-    icon: `<svg class="w-4 h-4 text-red-400 light:text-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`,
-  },
-]
+const individualFeatures = membershipContent.individualFeatures
+const familyFeatures = membershipContent.familyFeatures
+const feeRows = membershipContent.feeRows
+const addons = membershipContent.addons
+const notes = membershipContent.notes
 </script>

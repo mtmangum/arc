@@ -95,45 +95,8 @@
 </template>
 
 <script setup lang="ts">
-const documents = [
-  {
-    title:   'Range Rules',
-    desc:    'The authoritative document governing all range use at Austin Rifle Club. All members must read and follow these rules.',
-    url:     'https://austinrifleclub.org/files/RangeRules.pdf',
-    updated: 'March 2025',
-    badge:   'Authoritative',
-  },
-  {
-    title:   'Firearm Use by Range',
-    desc:    'Quick reference guide specifying which types of firearms are permitted on each individual range.',
-    url:     'https://austinrifleclub.org/files/FirearmUseByRange.pdf',
-    updated: 'December 2025',
-    badge:   null,
-  },
-  {
-    title:   'Quick Reference',
-    desc:    'A condensed flyer highlighting the most important safety rules. Great to review before each visit.',
-    url:     'https://austinrifleclub.org/files/RangeRules-QuickReference.pdf',
-    updated: 'March 2025',
-    badge:   null,
-  },
-  {
-    title:   'Steel Target Quick Reference',
-    desc:    'Details on which ranges permit steel targets and what conditions and distances apply per range.',
-    url:     'https://austinrifleclub.org/files/SteelQuickRef.pdf',
-    updated: 'November 2024',
-    badge:   null,
-  },
-]
+import rangeRulesContent from '@/content/rangeRules.json'
 
-const keyRules = [
-  { label: 'Suppressors / SBR / SBS',  note: 'Legal NFA items (suppressors, short-barreled rifles, SBS) are permitted.',                         allowed: true  },
-  { label: 'Holster Draw',              note: 'Allowed on select ranges only. All shots must be taken with an acquired sight picture.',             allowed: true  },
-  { label: 'Steel Targets',            note: 'Permitted on certain ranges under specific conditions — see Steel Quick Reference.',                 allowed: true  },
-  { label: 'Badge Gate Entry',         note: 'Scan your badge every entry and exit. Do not tailgate or allow others to follow you through.',       allowed: true  },
-  { label: 'Machine Gun / Simulated Auto', note: 'Prohibited. Includes bump stocks, FRTs, switches, and any simulated-auto fire devices.',        allowed: false },
-  { label: 'Movement While Shooting',  note: 'Not permitted except during a sanctioned match or ARC-authorized practice.',                        allowed: false },
-  { label: 'No Range Reservations',    note: 'General use ranges cannot be reserved. Only calendar-listed events reserve ranges.',               allowed: false },
-  { label: 'No Supplies On-Site',      note: 'No targets, ammo, or accessories are sold at the range. Bring everything you need.',               allowed: false },
-]
+const documents = rangeRulesContent.documents
+const keyRules = rangeRulesContent.keyRules
 </script>

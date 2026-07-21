@@ -1,0 +1,52 @@
+{
+  "individualFeatures": [
+    { "label": "Annual Dues", "detail": "$150/year (prorated first year)" },
+    { "label": "Unlimited Range Use", "detail": "during published hours" },
+    { "label": "Spouse Add-On", "detail": "$25/year" },
+    { "label": "Junior Add-On", "detail": "$10/year per child/grandchild (≤21)" },
+    { "label": "Background Check", "detail": "waived with valid Texas LTC" }
+  ],
+  "familyFeatures": [
+    { "label": "Annual Dues", "detail": "$200/year (prorated first year)" },
+    { "label": "Unlimited Range Use", "detail": "for all covered members" },
+    { "label": "Spouse Included", "detail": "full independent membership" },
+    { "label": "Juniors Included", "detail": "all children/grandchildren ≤21" },
+    { "label": "Background Check", "detail": "waived with valid Texas LTC" }
+  ],
+  "feeRows": [
+    { "label": "Initiation Fee", "value": "$200 (one-time)", "note": "Paid at time of joining. Non-refundable." },
+    { "label": "Individual Dues", "value": "$150/year", "note": "Prorated in your first calendar year." },
+    { "label": "Family Dues", "value": "$200/year", "note": "Covers spouse + all juniors." },
+    { "label": "Background Check", "value": "$15", "note": "Waived if you present an unexpired Texas License to Carry." },
+    { "label": "Spouse Add-On", "value": "$25/year", "note": "Individual plan only. Spouse must meet all primary member requirements." },
+    { "label": "Junior Add-On", "value": "$10/year/each", "note": "Individual plan; included in Family plan." },
+    { "label": "Work Day Non-Completion Fee", "value": "+$50/renewal", "note": "Added if 3 volunteer Work Days not completed within first year." }
+  ],
+  "addons": [
+    { "price": "$25/yr", "label": "Spouse (Individual Plan)", "desc": "Must independently meet all primary member requirements." },
+    { "price": "$10/yr", "label": "Junior", "desc": "Children or grandchildren aged 21 or under. Included in Family plan." },
+    { "price": "Free", "label": "Match Participation", "desc": "Range use during club-hosted matches is open to non-members." }
+  ],
+  "notes": [
+    {
+      "title": "Annual Renewal Required",
+      "body": "All members — including Life Members — must renew every year. Renewal notices go out in early October. Lapsed 2+ years? You must rejoin as a new member.",
+      "icon": "renewal"
+    },
+    {
+      "title": "Prorated First Year",
+      "body": "New member dues are prorated depending on the month you join. Do not bring exact payment to orientation unless you know the prorated amount.",
+      "icon": "prorated"
+    },
+    {
+      "title": "Volunteer Requirement",
+      "body": "New and returning members must complete 3 Work Days (2nd Saturday of each month, 8am–12pm) within the first year to achieve full voting membership.",
+      "icon": "volunteer"
+    },
+    {
+      "title": "Family ≠ Extended Family",
+      "body": "The Family plan covers a married couple and their children/grandchildren (≤21). Siblings, parents, and extended family are not included.",
+      "icon": "warning"
+    }
+  ]
+}

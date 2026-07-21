@@ -157,67 +157,30 @@ function handleMapSelect(id: string): void {
   element?.scrollIntoView({ behavior: 'smooth', block: 'center' })
 }
 
+// Range ids are fixed in code because RangeMap.vue's hotspots link to them
+// by id — only name/desc/tags are CMS-editable, in src/content/ranges/*.json.
+import rangeA from '@/content/ranges/a.json'
+import rangeB from '@/content/ranges/b.json'
+import rangeC from '@/content/ranges/c.json'
+import rangeD from '@/content/ranges/d.json'
+import rangeE from '@/content/ranges/e.json'
+import rangeG from '@/content/ranges/g.json'
+import rangeHK from '@/content/ranges/h-k.json'
+import rangeL from '@/content/ranges/l.json'
+import rangeF from '@/content/ranges/f.json'
+import quickStatsContent from '@/content/rangesQuickStats.json'
+
 const ranges = [
-  {
-    id: 'A',
-    name: 'Range A',
-    desc: 'Multi-use range for conventional pistol, muzzle loading, and organized practices. Home to the 2700 Conventional Pistol Match and Junior Muzzle Loading Practice.',
-    tags: ['Pistol', 'Muzzle Loading', 'Rimfire'],
-  },
-  {
-    id: 'B',
-    name: 'Range B',
-    desc: 'General use range with fixed target frames and target stick support. Target sticks required (5 ft recommended).',
-    tags: ['General Use', 'Target Sticks Required'],
-  },
-  {
-    id: 'C',
-    name: 'Range C',
-    desc: 'The club\'s primary long-range rifle bay. Home to High Power Rifle and Benchrest matches at distances up to 200 yards.',
-    tags: ['Centerfire Rifle', 'Benchrest', '200 yd', 'High Power'],
-  },
-  {
-    id: 'D',
-    name: 'Range D',
-    desc: 'Silhouette range for hunter pistol, lever-action rifle, and smallbore rifle silhouette matches. Often used together with Range E.',
-    tags: ['Silhouette', 'Pistol', 'Smallbore Rifle', 'Lever Action'],
-  },
-  {
-    id: 'E',
-    name: 'Range E',
-    desc: 'Silhouette range for hunter pistol, lever-action rifle, and smallbore rifle silhouette matches. Often used together with Range D.',
-    tags: ['Silhouette', 'Pistol', 'Smallbore Rifle', 'Lever Action'],
-  },
-  {
-    id: 'G',
-    name: 'Range G',
-    desc: 'Six-bay covered action shooting range. Hosts LTC qualification courses, USPSA matches, and new member safety evaluations. Classroom also available for ARC-approved instruction.',
-    tags: ['Pistol', 'LTC', 'USPSA', 'Covered'],
-  },
-  {
-    id: 'H-K',
-    name: 'Ranges H – K',
-    desc: 'Four bays dedicated to action shooting disciplines including USPSA and Steel Challenge. Also home to the ARC Advanced Tactical Shooting Practice (weekly, on Ranges I & J). Target sticks required on select bays.',
-    tags: ['USPSA', 'Steel Challenge', 'Action Shooting', 'Tactical', 'Weekly Practice', 'Target Sticks'],
-  },
-  {
-    id: 'L',
-    name: 'Range L',
-    desc: 'Action shooting bay used for USPSA and Steel Challenge club matches.',
-    tags: ['USPSA', 'Steel Challenge', 'Action Shooting'],
-  },
-  {
-    id: 'F',
-    name: 'Range F',
-    desc: 'Indoor air range for 10-meter air rifle and air pistol. Limited access — contact the club for availability.',
-    tags: ['Air Rifle', 'Air Pistol', '10m', 'Indoor', 'Limited Access'],
-  },
+  { id: 'A', ...rangeA },
+  { id: 'B', ...rangeB },
+  { id: 'C', ...rangeC },
+  { id: 'D', ...rangeD },
+  { id: 'E', ...rangeE },
+  { id: 'G', ...rangeG },
+  { id: 'H-K', ...rangeHK },
+  { id: 'L', ...rangeL },
+  { id: 'F', ...rangeF },
 ]
 
-const quickStats = [
-  { value: '200 yd', label: 'Max centerfire rifle distance' },
-  { value: '10m',    label: 'Indoor air gun range' },
-  { value: '12+',    label: 'Total shooting bays' },
-  { value: '7 days', label: 'Weekly access' },
-]
+const quickStats = quickStatsContent.quickStats
 </script>

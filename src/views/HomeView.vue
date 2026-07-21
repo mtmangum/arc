@@ -106,7 +106,7 @@
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div v-for="feature in features" :key="feature.title" class="card-hover">
-              <div class="w-10 h-10 rounded-lg bg-amber-950/50 light:bg-amber-100 light:border light:border-amber-300 flex items-center justify-center mb-3" v-html="feature.icon" />
+              <div class="w-10 h-10 rounded-lg bg-amber-950/50 light:bg-amber-100 light:border light:border-amber-300 flex items-center justify-center mb-3" v-html="FEATURE_ICONS[feature.icon]" />
               <h3 class="text-white font-semibold text-sm mb-1">{{ feature.title }}</h3>
               <p class="text-slate-400 text-xs leading-relaxed">{{ feature.desc }}</p>
             </div>
@@ -189,55 +189,18 @@
 </template>
 
 <script setup lang="ts">
+import homeContent from '@/content/home.json'
+import { FEATURE_ICONS } from '@/lib/icons'
+
 const scrollToNext = () => {
   const statsSection = document.querySelector('[data-scroll-target="stats"]')
   if (statsSection) {
     statsSection.scrollIntoView({ behavior: 'smooth' })
   }
 }
-const stats = [
-  { value: '1894',    label: 'Year Founded' },
-  { value: '200 yd', label: 'Longest Rifle Range' },
-  { value: '7 Days', label: 'Per Week Access' },
-  { value: '12+',    label: 'Range Bays' },
-]
 
-const features = [
-  {
-    title: 'Member-Operated',
-    desc: 'Entirely volunteer-run. Members maintain the property and have a real say in how it is managed.',
-    icon: `<svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
-  },
-  {
-    title: 'Private & Secure',
-    desc: 'Badge-access gate. Range reserved exclusively for members, guests, and match participants.',
-    icon: `<svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`,
-  },
-  {
-    title: 'Multiple Disciplines',
-    desc: 'Pistol, rifle, benchrest, silhouette, steel challenge, muzzleloading, air guns & more.',
-    icon: `<svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>`,
-  },
-  {
-    title: 'Youth Programs',
-    desc: 'Committed to educating America\'s youth in shooting sports and safe gun handling.',
-    icon: `<svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>`,
-  },
-]
-
-const disciplines = [
-  { emoji: '🎯', name: 'Precision Benchrest', desc: 'Range C — centerfire & rimfire benchrest up to 200 yards.' },
-  { emoji: '🔫', name: 'USPSA / Steel Challenge', desc: 'Ranges G–L host regular APSC club matches and steel challenge events.' },
-  { emoji: '🏹', name: 'Silhouette Shooting', desc: 'Ranges D & E — hunter pistol, lever action, and smallbore rifle silhouette.' },
-  { emoji: '💨', name: 'Air Guns', desc: 'Indoor 10m air rifle and air pistol (limited access).' },
-  { emoji: '📯', name: 'Muzzle Loading', desc: 'Range A supports black powder and junior muzzle loading practice.' },
-  { emoji: '🏆', name: 'High Power Rifle', desc: 'Range C — monthly high power rifle matches.' },
-]
-
-const joinSteps = [
-  { label: 'Sign Up',            desc: 'Email membership to request the application link and fill out your form.' },
-  { label: 'Safety Evaluation', desc: 'One-on-one RSO evaluation. Bring your own firearm.' },
-  { label: 'Orientation Class', desc: 'Sunday afternoon class at the ARC Education Building (~2 hrs).' },
-  { label: 'Probationary Period', desc: '6 months + 3 volunteer Work Days to become a full voting member.' },
-]
+const stats = homeContent.stats
+const features = homeContent.features
+const disciplines = homeContent.disciplines
+const joinSteps = homeContent.joinSteps
 </script>
