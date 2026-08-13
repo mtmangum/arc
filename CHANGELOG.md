@@ -9,6 +9,7 @@ All notable changes to this project are documented in this file.
 
 ### Changed
 - Supabase bootstrap seed data refreshed from the club's current June–August 2026 calendar, replacing the stale June–July snapshot (`58bf376`)
+- Added `robots.txt` (disallow all) and a `noindex` meta tag so this Netlify dev deployment stays out of search engines while `austinrifleclub.org` remains the real live site (`0b4d3e7`)
 
 ## 2026-07-21
 
