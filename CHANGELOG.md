@@ -4,6 +4,9 @@ All notable changes to this project are documented in this file.
 
 ## 2026-08-13
 
+### Added
+- Ranges page: the range map now shows a side panel (desktop/tablet) listing every range's name and tags, connected to its spot on the map with a leader line that highlights on hover/click — no more scrolling down to see what's what (`b43d49d`)
+
 ### Fixed
 - Calendar: added the missing `'Range Closure'` entry to `EVENT_TYPE_STYLES`, so Range C maintenance-closure events (which existed in the database) actually render in the list, grid, and legend instead of silently vanishing (`893828a`)
 
