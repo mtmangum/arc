@@ -71,6 +71,13 @@ export const EVENT_TYPE_STYLES: Record<string, EventTypeStyle> = {
     calendarDay: 'text-white hover:bg-pink-600 cursor-pointer bg-pink-600/30 border-0',
     calendarBorder: 'border-2 border-pink-600',
   },
+  'Range Closure': {
+    badge: 'bg-red-900/40 text-red-300 light:text-red-800 border border-red-800',
+    dot: 'bg-red-400',
+    link: ['text-red-300', 'light:text-red-800', 'hover:bg-red-900/30'],
+    calendarDay: 'text-white hover:bg-red-600 cursor-pointer bg-red-600/30 border-0',
+    calendarBorder: 'border-2 border-red-600',
+  },
 }
 
 const DEFAULT_EVENT_TYPE_STYLE: EventTypeStyle = {
