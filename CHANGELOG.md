@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## 2026-08-13
+
+### Fixed
+- Calendar: added the missing `'Range Closure'` entry to `EVENT_TYPE_STYLES`, so Range C maintenance-closure events (which existed in the database) actually render in the list, grid, and legend instead of silently vanishing (`893828a`)
+
+### Changed
+- Supabase bootstrap seed data refreshed from the club's current June–August 2026 calendar, replacing the stale June–July snapshot (`58bf376`)
+
 ## 2026-07-21
 
 ### Added
