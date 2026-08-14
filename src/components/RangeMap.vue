@@ -2,7 +2,7 @@
   <div ref="containerRef" class="relative flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-4">
     <!-- Map -->
     <div class="relative lg:flex-1 lg:min-w-0">
-      <svg :viewBox="`0 0 ${MAP_W} ${MAP_H}`" class="w-full h-auto select-none rounded-lg overflow-hidden" role="img" aria-label="Aerial map of the Austin Rifle Club range complex">
+      <svg :viewBox="`${MAP_X} 0 ${MAP_W - MAP_X} ${MAP_H}`" class="w-full h-auto select-none rounded-lg overflow-hidden" role="img" aria-label="Aerial map of the Austin Rifle Club range complex">
         <image :href="mapImage" x="0" y="0" width="1500" height="972" preserveAspectRatio="xMidYMid slice" />
 
         <!-- Range hotspots -->
@@ -59,7 +59,7 @@
       >
         <div class="flex items-center gap-2 mb-1">
           <span
-            class="w-6 h-6 shrink-0 rounded bg-amber-950/50 light:bg-amber-100 border border-brand-800/50 flex items-center justify-center font-heading font-bold text-brand-300 light:text-brand-800 text-xs"
+            class="min-w-6 h-6 px-1 shrink-0 rounded bg-amber-950/50 light:bg-amber-100 border border-brand-800/50 flex items-center justify-center whitespace-nowrap font-heading font-bold text-brand-300 light:text-brand-800 text-xs"
           >{{ range.id }}</span>
           <p class="text-white font-semibold text-xs leading-tight">{{ range.name }}</p>
         </div>
@@ -172,26 +172,29 @@ const hoveredSpot = ref<Hotspot | null>(null)
 const rangeById = computed(() => Object.fromEntries(props.ranges.map(r => [r.id, r])))
 const hoveredRange = computed(() => (hoveredSpot.value ? rangeById.value[hoveredSpot.value.rangeId] : null))
 
-// The source image is 1500x972, but everything past ~x=1180 is undeveloped
-// forest with no ranges in it, so the viewBox crops to that width while the
-// <image> underneath stays at full size — hotspot coordinates (in original
-// image-pixel space) don't need to change, just the visible window.
+// The source image is 1500x972, but everything left of ~x=130 is the
+// neighboring property and everything past ~x=1180 is undeveloped forest —
+// neither has any ranges in it, so the viewBox crops to [MAP_X, MAP_W] while
+// the <image> underneath stays at full size — hotspot coordinates (in
+// original image-pixel space) don't need to change, just the visible window.
+const MAP_X = 130
 const MAP_W = 1180
 const MAP_H = 972
+const MAP_VISIBLE_W = MAP_W - MAP_X
 
 const tooltipStyle = computed(() => {
   const spot = hoveredSpot.value
   if (!spot) return {}
 
-  const leftPct = ((spot.x + spot.w / 2) / MAP_W) * 100
+  const leftPct = ((spot.x - MAP_X + spot.w / 2) / MAP_VISIBLE_W) * 100
   const topPct = (spot.y / MAP_H) * 100
   const bottomPct = ((spot.y + spot.h) / MAP_H) * 100
   const style: Record<string, string> = {}
 
   if (leftPct < 22) {
-    style.left = `${(spot.x / MAP_W) * 100}%`
+    style.left = `${((spot.x - MAP_X) / MAP_VISIBLE_W) * 100}%`
   } else if (leftPct > 78) {
-    style.right = `${100 - ((spot.x + spot.w) / MAP_W) * 100}%`
+    style.right = `${100 - ((spot.x - MAP_X + spot.w) / MAP_VISIBLE_W) * 100}%`
   } else {
     style.left = `${leftPct}%`
     style.transform = 'translateX(-50%)'

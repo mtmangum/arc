@@ -40,7 +40,7 @@
           @mouseleave="hoveredId = null"
         >
           <div class="flex items-center gap-3 mb-3">
-            <span class="w-9 h-9 rounded-lg bg-amber-950/50 light:bg-amber-100 border border-brand-800/50 flex items-center justify-center font-heading font-bold text-brand-300 light:text-brand-800 text-sm">
+            <span class="min-w-9 h-9 px-1.5 shrink-0 rounded-lg bg-amber-950/50 light:bg-amber-100 border border-brand-800/50 flex items-center justify-center whitespace-nowrap font-heading font-bold text-brand-300 light:text-brand-800 text-sm">
               {{ range.id }}
             </span>
             <h3 class="text-white font-semibold text-sm">{{ range.name }}</h3>
