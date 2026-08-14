@@ -9,12 +9,14 @@ All notable changes to this project are documented in this file.
 
 ### Fixed
 - Calendar: added the missing `'Range Closure'` entry to `EVENT_TYPE_STYLES`, so Range C maintenance-closure events (which existed in the database) actually render in the list, grid, and legend instead of silently vanishing (`893828a`)
+- Ranges page: the "H-K" badge wrapped onto two lines in the map panel and card grid since it was a fixed-size square — now sizes to fit (`20778b0`)
 
 ### Changed
 - Supabase bootstrap seed data refreshed from the club's current June–August 2026 calendar, replacing the stale June–July snapshot (`58bf376`)
 - Added `robots.txt` (disallow all) and a `noindex` meta tag so this Netlify dev deployment stays out of search engines while `austinrifleclub.org` remains the real live site (`0b4d3e7`)
 - Range map cropped to cut the dead forest space east of Range E, so hotspots read bigger and the map's height matches the side panel better (`60887fb`)
 - Map side panel now shows each range's first sentence of description instead of tag chips (`da282a3`)
+- Range map's left edge cropped too, trimming the neighboring property out of frame the same way the right-edge forest was cropped (`20778b0`)
 
 ## 2026-07-21
 
