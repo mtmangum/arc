@@ -13,6 +13,8 @@ All notable changes to this project are documented in this file.
 ### Changed
 - Supabase bootstrap seed data refreshed from the club's current June–August 2026 calendar, replacing the stale June–July snapshot (`58bf376`)
 - Added `robots.txt` (disallow all) and a `noindex` meta tag so this Netlify dev deployment stays out of search engines while `austinrifleclub.org` remains the real live site (`0b4d3e7`)
+- Range map cropped to cut the dead forest space east of Range E, so hotspots read bigger and the map's height matches the side panel better (`60887fb`)
+- Map side panel now shows each range's first sentence of description instead of tag chips (`da282a3`)
 
 ## 2026-07-21
 
