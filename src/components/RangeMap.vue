@@ -2,7 +2,7 @@
   <div ref="containerRef" class="relative flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-4">
     <!-- Map -->
     <div class="relative lg:flex-1 lg:min-w-0">
-      <svg viewBox="0 0 1500 972" class="w-full h-auto select-none rounded-lg overflow-hidden" role="img" aria-label="Aerial map of the Austin Rifle Club range complex">
+      <svg :viewBox="`0 0 ${MAP_W} ${MAP_H}`" class="w-full h-auto select-none rounded-lg overflow-hidden" role="img" aria-label="Aerial map of the Austin Rifle Club range complex">
         <image :href="mapImage" x="0" y="0" width="1500" height="972" preserveAspectRatio="xMidYMid slice" />
 
         <!-- Range hotspots -->
@@ -173,7 +173,11 @@ const hoveredSpot = ref<Hotspot | null>(null)
 const rangeById = computed(() => Object.fromEntries(props.ranges.map(r => [r.id, r])))
 const hoveredRange = computed(() => (hoveredSpot.value ? rangeById.value[hoveredSpot.value.rangeId] : null))
 
-const MAP_W = 1500
+// The source image is 1500x972, but everything past ~x=1180 is undeveloped
+// forest with no ranges in it, so the viewBox crops to that width while the
+// <image> underneath stays at full size — hotspot coordinates (in original
+// image-pixel space) don't need to change, just the visible window.
+const MAP_W = 1180
 const MAP_H = 972
 
 const tooltipStyle = computed(() => {
