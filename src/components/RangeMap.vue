@@ -63,12 +63,7 @@
           >{{ range.id }}</span>
           <p class="text-white font-semibold text-xs leading-tight">{{ range.name }}</p>
         </div>
-        <div class="flex flex-wrap gap-1">
-          <span v-for="tag in range.tags" :key="tag"
-            class="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400">
-            {{ tag }}
-          </span>
-        </div>
+        <p class="text-slate-400 text-xs leading-relaxed">{{ firstSentence(range.desc) }}</p>
       </button>
     </div>
 
@@ -167,6 +162,10 @@ const hotspots: Hotspot[] = [...buildingHotspots, ...bayHotspots]
 
 function isActive(rangeId: string): boolean {
   return props.activeId === rangeId
+}
+
+function firstSentence(text: string): string {
+  return text.match(/^.*?[.!?](?=\s|$)/)?.[0] ?? text
 }
 
 const hoveredSpot = ref<Hotspot | null>(null)
